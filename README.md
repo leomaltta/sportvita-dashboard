@@ -167,5 +167,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - GitHub: [@leonardomalta](https://github.com/leonardomalta) / [@leonardomalta](https://github.com/leonardomalta)
 - LinkedIn: [Leonardo Malta](https://linkedin.com/in/leonardomalta) / [Luiz Neves](https://www.linkedin.com/in/luiz-neves1227/)
-
-
