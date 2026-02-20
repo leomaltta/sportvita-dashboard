@@ -30,9 +30,7 @@ interface StudentDialogProps {
   children: ReactNode
 }
 
-/**
- * StudentDialog Component
- */
+
 export default function StudentDialog({
   mode,
   student,
@@ -43,7 +41,6 @@ export default function StudentDialog({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
-  // Form state
   const [formData, setFormData] = useState<StudentFormData>({
     nome: student?.name || '',
     matricula: student?.registrationCode || '',
@@ -57,9 +54,7 @@ export default function StudentDialog({
     altura: student?.height || 0,
   })
 
-  /**
-   * Handles form submission
-   */
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
@@ -84,9 +79,7 @@ export default function StudentDialog({
     }
   }
 
-  /**
-   * Updates sport alterName when sport is selected
-   */
+
   const handleSportChange = (value: string) => {
     const sport = SPORTS.find((s) => s.value === value)
     setFormData({
@@ -107,14 +100,12 @@ export default function StudentDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Error Message */}
           {error && (
             <div className="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-900/20 dark:text-red-200">
               {error}
             </div>
           )}
 
-          {/* Name */}
           <div className="space-y-2">
             <Label htmlFor="name">Nome Completo</Label>
             <Input
@@ -128,7 +119,6 @@ export default function StudentDialog({
             />
           </div>
 
-          {/* Grid - Matricula and Phone */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="matricula">Matrícula</Label>
@@ -155,7 +145,6 @@ export default function StudentDialog({
             </div>
           </div>
 
-          {/* Grid - Age, Weight, Height */}
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="idade">Idade</Label>
@@ -208,7 +197,6 @@ export default function StudentDialog({
             </div>
           </div>
 
-          {/* Sport */}
           <div className="space-y-2">
             <Label>Esporte</Label>
             <Select
@@ -229,7 +217,6 @@ export default function StudentDialog({
             </Select>
           </div>
 
-          {/* Grid - Sub and Shift */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Turma (Sub)</Label>
@@ -275,7 +262,6 @@ export default function StudentDialog({
             </div>
           </div>
 
-          {/* Actions */}
           <div className="flex justify-end gap-3 pt-4">
             <Button
               type="button"

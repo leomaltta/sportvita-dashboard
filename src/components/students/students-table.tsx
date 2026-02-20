@@ -23,15 +23,12 @@ interface StudentsTableProps {
   students: StudentWithBMI[]
 }
 
-/**
- * StudentsTable Component
- */
+
 export default function StudentsTable({ students }: StudentsTableProps) {
   const router = useRouter()
   const [search, setSearch] = useState('')
   const [isDeleting, setIsDeleting] = useState<bigint | null>(null)
 
-  // Filter students by search
   const filteredStudents = students.filter(
     (student) =>
       student.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -39,9 +36,7 @@ export default function StudentsTable({ students }: StudentsTableProps) {
       student.sportAlterName.toLowerCase().includes(search.toLowerCase()),
   )
 
-  /**
-   * Handles student deletion
-   */
+
   const handleDelete = async (id: bigint) => {
     if (!confirm('Tem certeza que deseja excluir este estudante?')) {
       return
