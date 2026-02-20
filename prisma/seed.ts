@@ -123,6 +123,26 @@ async function main() {
   // SEED ADMIN USER
   // ============================================
   console.log('Seeding admin user...')
+  const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@sportvita.com'
+  const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin@12345'
+  const hashedPassword = await bcrypt.hash(adminPassword, 10)
+
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {
+      name: 'Admin',
+      password: hashedPassword,
+      role: 'admin',
+    },
+    create: {
+      name: 'Admin',
+      email: adminEmail,
+      password: hashedPassword,
+      role: 'admin',
+    },
+  })
+
+  console.log(`Admin user ready: ${adminEmail}`)
   console.log('Database seeding completed successfully!')
 }
 

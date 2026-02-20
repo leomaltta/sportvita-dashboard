@@ -2,10 +2,13 @@ import { withAuth, NextRequestWithAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
 export default withAuth(
-  function middleware(request: NextRequestWithAuth) {
+  function proxy(request: NextRequestWithAuth) {
     const { pathname } = request.nextUrl
     const token = request.nextauth.token
 
+    if (pathname === '/') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
 
     if (pathname.startsWith('/admin') && token?.role !== 'admin') {
       return NextResponse.rewrite(new URL('/denied', request.url))
@@ -43,6 +46,7 @@ export default withAuth(
 )
 export const config = {
   matcher: [
+    '/',
     '/dashboard/:path*',
     '/esportes/:path*',
     '/professores/:path*',
