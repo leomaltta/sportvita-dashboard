@@ -12,7 +12,7 @@ export async function createStudent(
   try {
     await prisma.student.create({
       data: {
-        name: data.name,
+        name: data.nome,
         registrationCode: data.matricula,
         phoneNumber: data.telefone || null,
         age: parseInt(data.idade),
@@ -49,16 +49,16 @@ export async function updateStudent(
     await prisma.student.update({
       where: { id },
       data: {
-        nome: data.nome,
-        matricula: data.matricula,
-        telefone: data.telefone || null,
-        idade: parseInt(data.idade),
-        peso: data.peso,
-        altura: data.altura,
-        esporte: data.esporte,
-        esporte_alterName: data.esporte_alterName,
-        sub: data.turma,
-        turno: data.turno,
+        name: data.nome,
+        registrationCode: data.matricula,
+        phoneNumber: data.telefone || null,
+        age: parseInt(data.idade),
+        weight: data.peso,
+        height: data.altura,
+        sportName: data.esporte,
+        sportAlterName: data.esporte_alterName,
+        subCategory: data.turma,
+        shift: data.turno,
       },
     })
     // Revalidate cache

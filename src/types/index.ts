@@ -1,36 +1,27 @@
-// ============================================
-// STUDENT TYPES
-// ============================================
 
-/**
- * Base Student (Aluno) interface
- */
 export interface Student {
-    alunoID: bigint
-    nome: string
-    matricula: string
-    numero_cel: string | null
-    idade: number
-    peso: number
-    altura: number
-    esporte: string
-    esporte_alterName: string
-    sub: string
-    turno: string
+    id: bigint
+  name: string
+  registrationCode: string
+  phoneNumber: string | null
+  age: number
+  weight: number
+  height: number
+  sportName: string
+  sportAlterName: string
+  subCategory: string
+  shift: string
+  createdAt: Date
+  updatedAt: Date
+
   }
   
-  /**
-   * Student with calculated BMI
-   */
   export interface StudentWithBMI extends Student {
     imc: number
   }
   
-  /**
-   * Student form data (for create/update operations)
-   */
-  export interface StudentFormData {
-    name: string
+   export interface StudentFormData {
+    nome: string
     matricula: string
     telefone: string
     idade: string
@@ -42,13 +33,7 @@ export interface Student {
     esporte_alterName: string
   }
   
-  // ============================================
-  // TEACHER TYPES
-  // ============================================
-  
-  /**
-   * Teacher (Professor) interface
-   */
+
   export interface Teacher {
     professorID: bigint
     professor_nome: string
@@ -59,18 +44,14 @@ export interface Student {
     matricula: string
   }
   
-  /**
-   * Teacher with Sport information
-   */
+
   export interface TeacherWithSport extends Teacher {
     tb_esportes: Sport
   }
   
-  /**
-   * Teacher form data
-   */
+
   export interface TeacherFormData {
-    name: string
+    nome: string
     email: string
     matricula: string
     esporte: string
@@ -79,13 +60,7 @@ export interface Student {
     turno: string
   }
   
-  // ============================================
-  // SPORT TYPES
-  // ============================================
-  
-  /**
-   * Sport (Esporte) interface
-   */
+
   export interface Sport {
     esporteID: number
     esporte_name: string
@@ -93,22 +68,13 @@ export interface Student {
     alter_name: string
     route: string
   }
-  
-  // ============================================
-  // BMI TYPES
-  // ============================================
-  
-  /**
-   * BMI statistics for a sub-category
-   */
+
   export interface BMIStats {
     media: number
     count: number
   }
   
-  /**
-   * BMI statistics for a sport
-   */
+
   export interface SportBMIStats {
     sub6?: BMIStats
     sub8: BMIStats
@@ -120,54 +86,31 @@ export interface Student {
       subDestaque: string
     }
   }
-  
-  /**
-   * Chart data point for BMI visualization
-   */
+
   export interface ChartDataPoint {
     name: string
     Ideal: number | string | undefined
     Atual: number | string
     amt?: number
   }
-  
-  // ============================================
-  // FORM TYPES
-  // ============================================
-  
-  /**
-   * Generic form state
-   */
+
   export interface FormState {
     isSubmitting: boolean
     error: string | null
   }
-  
-  /**
-   * Select option for dropdowns
-   */
+
   export interface SelectOption {
     value: string
     label: string
   }
-  
-  // ============================================
-  // API RESPONSE TYPES
-  // ============================================
-  
-  /**
-   * Generic API response
-   */
+
   export interface ApiResponse<T = unknown> {
     success: boolean
     data?: T
     error?: string
     message?: string
   }
-  
-  /**
-   * Paginated response
-   */
+
   export interface PaginatedResponse<T> {
     data: T[]
     total: number
@@ -175,21 +118,10 @@ export interface Student {
     pageSize: number
     totalPages: number
   }
-  
-  // ============================================
-  // UTILITY TYPES
-  // ============================================
-  
-  /**
-   * Make all properties optional recursively
-   */
+
   export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
   }
-  
-  /**
-   * Extract keys of type from object
-   */
   export type KeysOfType<T, U> = {
     [K in keyof T]: T[K] extends U ? K : never
   }[keyof T]

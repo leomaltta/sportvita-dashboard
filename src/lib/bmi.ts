@@ -28,15 +28,16 @@ export function calculateBMI(weight: number, height: number): number {
  * 
  */
 export function addBMIToStudent(student: {
-  peso: number
-  altura: number
+  weight: number
+  height: number
   [key: string]: any
 }): StudentWithBMI {
   return {
     ...student,
-    imc: calculateBMI(student.peso, student.altura),
+    imc: calculateBMI(student.weight, student.height),
   } as StudentWithBMI
 }
+
 
 /**
  * Calculates average BMI for a subcategory
@@ -50,7 +51,8 @@ export function calculateSubCategoryAverage(
   students: StudentWithBMI[],
   subCategory: string,
 ): BMIStats {
-  const filtered = students.filter((s) => s.sub === subCategory)
+  const filtered = students.filter((s) => s.subCategory === subCategory)
+
 
   if (filtered.length === 0) {
     return { media: 0, count: 0 }
@@ -77,14 +79,14 @@ export function calculateSportStats(
   students: StudentWithBMI[],
   sportName: string,
 ): { media: number; count: number; subDestaque: string } {
-  const sportStudents = students.filter((s) => s.esporte === sportName)
+  const sportStudents = students.filter((s) => s.sportName === sportName)
 
   if (sportStudents.length === 0) {
     return { media: 0, count: 0, subDestaque: '' }
   }
 
   // Get unique subcategories
-  const subCategories = Array.from(new Set(sportStudents.map((s) => s.sub)))
+  const subCategories = Array.from(new Set(sportStudents.map((s) => s.subCategory)))
 
   // Calculate average for each subcategory
   const subStats = subCategories.map((sub) => ({
