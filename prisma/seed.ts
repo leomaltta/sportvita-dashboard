@@ -2,10 +2,6 @@ import bcrypt from 'bcrypt'
 import prisma from './client'
 
 async function main() {
-
-  // ============================================
-  // SEED SHIFTS
-  // ============================================
   console.log('Seeding shifts...')
   const shifts = await prisma.shift.createMany({
     data: [
@@ -16,10 +12,6 @@ async function main() {
     skipDuplicates: true,
   })
   console.log(`Created ${shifts.count} shifts\n`)
-
-  // ============================================
-  // SEED SUB-CATEGORIES (AGE GROUPS)
-  // ============================================
   console.log('Seeding sub-categories...')
   const subs = await prisma.subCategory.createMany({
     data: [
@@ -33,10 +25,6 @@ async function main() {
     skipDuplicates: true,
   })
   console.log(`Created ${subs.count} sub-categories\n`)
-
-  // ============================================
-  // SEED IDEAL BMI VALUES
-  // ============================================
   console.log('Seeding ideal BMI values...')
   const imcIdeal = await prisma.idealBMI.createMany({
     data: [
@@ -51,9 +39,7 @@ async function main() {
   })
   console.log(`Created ${imcIdeal.count} ideal BMI records\n`)
 
-  // ============================================
-  // SEED SPORTS
-  // ============================================
+
   console.log('Seeding sports...')
   const sports = await prisma.sport.createMany({
     data: [
@@ -115,10 +101,6 @@ async function main() {
     skipDuplicates: true,
   })
   console.log(`Created ${sports.count} sports\n`)
-
-  // ============================================
-  // SEED ADMIN USER
-  // ============================================
   console.log('Seeding admin user...')
   const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@sportvita.com'
   const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin@12345'

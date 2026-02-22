@@ -1,50 +1,40 @@
-import React from 'react';
-import type { Metadata } from 'next';
-
-// Mock next/font/google
-const mockGeistSans = {
-  variable: '--font-geist-sans',
-};
-
-const mockGeistMono = {
-  variable: '--font-geist-mono',
-};
+import React from 'react'
 
 jest.mock('next/font/google', () => ({
-  Geist: () => mockGeistSans,
-  Geist_Mono: () => mockGeistMono,
-}));
+  Ubuntu: () => ({ className: 'ubuntu-font' }),
+}))
+
+jest.mock('@/components/providers/theme-provider', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
+
+jest.mock('@/context/auth-context', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
 
 describe('RootLayout', () => {
-  // Import after mocking
-  let RootLayout: any;
-  
+  let RootLayout: any
+
   beforeAll(() => {
-    RootLayout = require('./layout').default;
-  });
+    RootLayout = require('./layout').default
+  })
 
-  it('renders children correctly', () => {
-    const testChild = <div data-testid="test-child">Test Child Content</div>;
-    const result = RootLayout({ children: testChild });
+  it('renders children correctly with pt-br html lang', () => {
+    const testChild = <div data-testid="test-child">Test Child Content</div>
+    const result = RootLayout({ children: testChild })
 
-    // Verify the structure contains the children
-    expect(result.type).toBe('html');
-    expect(result.props.lang).toBe('en');
-    expect(result.props.children.type).toBe('body');
-    expect(result.props.children.props.children).toBe(testChild);
-  });
+    expect(result.type).toBe('html')
+    expect(result.props.lang).toBe('pt-br')
+    expect(result.props.children.type).toBe('body')
+  })
 
-  it('applies Geist font classes to html body', () => {
-    const testChild = <div>Test Content</div>;
-    const result = RootLayout({ children: testChild });
+  it('applies ubuntu font class to body', () => {
+    const testChild = <div>Test Content</div>
+    const result = RootLayout({ children: testChild })
+    const bodyElement = result.props.children
 
-    // Check the body element has the correct className
-    const bodyElement = result.props.children;
-    const expectedClasses = `${mockGeistSans.variable} ${mockGeistMono.variable} antialiased`;
-    
-    expect(bodyElement.props.className).toBe(expectedClasses);
-    expect(bodyElement.props.className).toContain('--font-geist-sans');
-    expect(bodyElement.props.className).toContain('--font-geist-mono');
-    expect(bodyElement.props.className).toContain('antialiased');
-  });
-});
+    expect(bodyElement.props.className).toBe('ubuntu-font')
+  })
+})

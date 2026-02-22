@@ -1,47 +1,59 @@
 import { Metadata } from 'next'
 import LoginForm from '@/components/auth/login-form'
-import Image from 'next/image'
+import { ModeToggle } from '@/components/ui/mode-toggle'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import { authOptions } from '@/app/api/auth/[...nextauth]/options'
+import { LoginCarousel } from '@/components/carousels/login-carousel'
 
 export const metadata: Metadata = {
-  title: 'Login | Sport Vita Dashboard',
-  description: 'Faça login no Sport Vita Dashboard',
+  title: 'Acesse sua Dashboard',
+  description: 'Dashboard App',
 }
-export default function LoginPage() {
+
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions)
+
+  if (session) {
+    redirect('/dashboard')
+  }
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 dark:from-gray-900 dark:to-gray-800">
-      <div className="w-full max-w-md space-y-8">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-logoGreen">
-        <div className="text-center">
-            <svg
-              className="h-12 w-12 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
+    <main className="w-full lg:flex lg:flex-row-reverse">
+      <section className="relative flex h-screen flex-col items-center justify-center lg:w-2/4">
+        <div className="absolute right-5 top-4">
+          <ModeToggle />
+        </div>
+        <div className="flex w-full max-w-lg flex-col gap-5 px-6">
+          <div className="flex flex-col items-center">
+            <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+              Acesse sua Dashboard
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Insira seu e-mail e PIN institucional para acessar.
+            </p>
           </div>
-          <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Sport Vita Dashboard
-          </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Faça login para acessar o sistema
-          </p>
-        </div>
-
-        <div className="rounded-lg bg-white px-8 py-10 shadow-xl dark:bg-gray-800">
           <LoginForm />
+          <div className="flex flex-col items-center text-center">
+            <p className="w-2/4 text-sm text-muted-foreground">
+              Ao clicar em acessar, você concorda com nossos{' '}
+              <a className="w-2/4 cursor-pointer text-sm text-muted-foreground underline hover:text-primary">
+                Termos de Serviço
+              </a>{' '}
+              e{' '}
+              <a className="w-2/4 cursor-pointer text-sm text-muted-foreground underline hover:text-primary">
+                Política de Privacidade
+              </a>
+              .
+            </p>
+          </div>
         </div>
-
-        <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-          © 2025 M&N Soluções Digitais. Todos os direitos reservados.
-        </p>
-      </div>
-    </div>
+      </section>
+      <section className="hidden lg:block lg:h-screen lg:w-2/4 lg:bg-primary">
+        <div className="hidden lg:block lg:h-fit">
+          <LoginCarousel />
+        </div>
+      </section>
+    </main>
   )
 }

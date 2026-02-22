@@ -1,38 +1,42 @@
-import { render, screen } from '@testing-library/react';
-import Home from './page';
+const mockGetServerSession = jest.fn()
+const mockRedirect = jest.fn()
 
-describe('Home', () => {
-  it('renders Next.js logo image', () => {
-    render(<Home />);
+jest.mock('next-auth', () => ({
+  getServerSession: (...args: unknown[]) => mockGetServerSession(...args),
+}))
 
-    const logo = screen.getByAltText('Next.js logo');
-    expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('src', '/next.svg');
-    expect(logo).toHaveAttribute('width', '100');
-    expect(logo).toHaveAttribute('height', '20');
-  });
+jest.mock('next/navigation', () => ({
+  redirect: (...args: unknown[]) => mockRedirect(...args),
+}))
 
-  it('contains deploy and documentation links with correct attributes', () => {
-    render(<Home />);
+jest.mock('@/app/api/auth/[...nextauth]/options', () => ({
+  authOptions: {},
+}))
 
-    // Check Deploy Now link
-    const deployLink = screen.getByRole('link', { name: /deploy now/i });
-    expect(deployLink).toBeInTheDocument();
-    expect(deployLink).toHaveAttribute(
-      'href',
-      'https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-    );
-    expect(deployLink).toHaveAttribute('target', '_blank');
-    expect(deployLink).toHaveAttribute('rel', 'noopener noreferrer');
+describe('Home redirect behavior', () => {
+  let Home: any
 
-    // Check Documentation link
-    const docsLink = screen.getByRole('link', { name: /^documentation$/i });
-    expect(docsLink).toBeInTheDocument();
-    expect(docsLink).toHaveAttribute(
-      'href',
-      'https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-    );
-    expect(docsLink).toHaveAttribute('target', '_blank');
-    expect(docsLink).toHaveAttribute('rel', 'noopener noreferrer');
-  });
-});
+  beforeAll(() => {
+    Home = require('./page').default
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('redirects authenticated users to /dashboard', async () => {
+    mockGetServerSession.mockResolvedValueOnce({ user: { email: 'a@b.com' } })
+
+    await Home()
+
+    expect(mockRedirect).toHaveBeenCalledWith('/dashboard')
+  })
+
+  it('redirects unauthenticated users to /login', async () => {
+    mockGetServerSession.mockResolvedValueOnce(null)
+
+    await Home()
+
+    expect(mockRedirect).toHaveBeenCalledWith('/login')
+  })
+})

@@ -35,26 +35,33 @@ export interface Student {
   
 
   export interface Teacher {
-    professorID: bigint
-    professor_nome: string
-    professor_email: string
-    turno: string
-    esporteID: number
-    sub: string
-    matricula: string
+    id: bigint
+    name: string
+    email: string
+    shift: string
+    sportId: number
+    subCategory: string
+    registrationCode: string
+    createdAt: Date
+    updatedAt: Date
   }
   
 
   export interface TeacherWithSport extends Teacher {
-    tb_esportes: Sport
+    sport: {
+      id: number
+      name: string
+      alterName: string
+      route: string
+      imageUrl: string
+    }
   }
   
 
   export interface TeacherFormData {
-    nome: string
+    name: string
     email: string
     matricula: string
-    esporte: string
     esporteID: number
     turma: string
     turno: string

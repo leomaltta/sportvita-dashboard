@@ -1,3 +1,5 @@
+
+
 import { Metadata } from 'next'
 import { getStudentsWithBMI } from '@/lib/actions/students'
 import StudentsTable from '@/components/students/students-table'
@@ -13,9 +15,9 @@ export const metadata: Metadata = {
 
 export default async function StudentsPage() {
   const students = await getStudentsWithBMI()
-  return (
-    <div className="space-y-6">
 
+  return (
+    <div className="m-3 space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -32,7 +34,6 @@ export default async function StudentsPage() {
           </Button>
         </StudentDialog>
       </div>
-
       <StudentsTable students={students} />
     </div>
   )
