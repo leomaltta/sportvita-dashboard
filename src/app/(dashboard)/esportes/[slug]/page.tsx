@@ -184,10 +184,10 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
   if (!data) notFound()
 
   return (
-    <main className="space-y-6 pb-8">
-      <section className="relative h-[220px] overflow-hidden rounded-xl border">
+    <main className="space-y-6 px-2 pb-8 sm:px-3 lg:px-0">
+      <section className="relative h-[220px] overflow-hidden rounded-xl border sm:h-[250px]">
         <Image
-          src={data.sport.imageUrl}
+          src={data.sport.imageHeader}
           alt={data.sport.alterName}
           fill
           priority
@@ -261,7 +261,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
               Alerta de Saúde
             </CardTitle>
             <CardDescription>
-              Subcategorias com mais de 30% de alunos fora da faixa de IMC normal.
+              Subcategorias com mais de 30% de estudantes fora da faixa de IMC normal.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
@@ -310,7 +310,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
                       <span>{item.normalRate.toFixed(1)}%</span>
                     </p>
                     <p className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Total de alunos</span>
+                      <span className="text-muted-foreground">Total de estudantes</span>
                       <span>{item.count}</span>
                     </p>
                   </div>
@@ -356,7 +356,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
           <CardHeader>
             <CardTitle>Comparativo entre subcategorias</CardTitle>
             <CardDescription>
-              IMC médio, gasto calórico estimado e taxa de alunos em faixa normal.
+              IMC médio, gasto calórico estimado e taxa de estudantes em faixa normal.
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">
@@ -431,4 +431,3 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
     </main>
   )
 }
-

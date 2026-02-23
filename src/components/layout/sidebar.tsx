@@ -32,7 +32,7 @@ const menuItems = [
   },
   {
     label: 'Estudantes',
-    href: '/alunos',
+    href: '/estudantes',
     icon: GraduationCap,
     roles: ['admin'],
   },

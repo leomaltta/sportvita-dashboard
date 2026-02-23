@@ -22,18 +22,18 @@ export default function SportCard({
 
   return (
     <Card
-      className="group relative h-64 cursor-pointer overflow-hidden rounded-xl border-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative isolate h-64 cursor-pointer overflow-hidden rounded-xl border-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       onClick={() => router.push(`/esportes/${sportRoute}`)}
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden rounded-xl">
         <Image
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full rounded-xl object-cover transition-transform duration-500 ease-out will-change-transform group-hover:scale-105"
           fill
           src={sportImg}
           alt={`${sportName} Image`}
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/70 via-black/25 to-black/10" />
       </div>
 
       <div className="absolute inset-x-0 bottom-0 p-5">

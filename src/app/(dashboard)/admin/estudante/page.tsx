@@ -1,7 +1,7 @@
-import AddAlunoForm from '@/components/forms/add-aluno-form'
+import AddEstudanteForm from '@/components/forms/add-estudante-form'
 import { Separator } from '@/components/ui/separator'
 
-export default function AddAlunoPage() {
+export default function AddEstudantePage() {
   return (
     <div className="ml-2 space-y-6">
       <div>
@@ -11,7 +11,7 @@ export default function AddAlunoPage() {
         </p>
       </div>
       <Separator />
-      <AddAlunoForm />
+      <AddEstudanteForm />
     </div>
   )
 }

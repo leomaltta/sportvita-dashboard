@@ -134,6 +134,7 @@ model Sport {
   alterName String @unique @map("alter_name")
   route     String @unique
   imageUrl  String @map("img")
+  imageHeader String @default("") @map("img_2")
 
   createdAt DateTime @default(now()) @map("created_at")
 

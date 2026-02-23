@@ -81,7 +81,7 @@ export const SPORTS = [
     HOME: '/',
     LOGIN: '/login',
     DASHBOARD: '/dashboard',
-    STUDENTS: '/alunos',
+    STUDENTS: '/estudantes',
     TEACHERS: '/professores',
     SPORTS: '/esportes',
     ADMIN: '/admin',

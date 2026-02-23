@@ -4,7 +4,7 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function revalidateStudents() {
   revalidateTag('students')
-  revalidatePath('/alunos')
+  revalidatePath('/estudantes')
   revalidatePath('/dashboard/[slug]', 'page')
 }
 

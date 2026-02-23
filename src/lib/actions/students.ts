@@ -24,8 +24,6 @@ export async function createStudent(
         shift: data.turno,
       },
     })
-
-    // Revalidate cache
     await revalidateStudents()
 
     return {
@@ -61,7 +59,6 @@ export async function updateStudent(
         shift: data.turno,
       },
     })
-    // Revalidate cache
     await revalidateStudents()
 
     return {
@@ -83,7 +80,6 @@ export async function deleteStudent(id: bigint): Promise<ApiResponse> {
       where: { id },
     })
 
-    // Revalidate cache
     await revalidateStudents()
 
     return {
@@ -105,7 +101,6 @@ export async function getStudentsWithBMI() {
       orderBy: { name: 'asc' },
     })
 
-    // Calculate BMI for each student
     return students.map((student) => ({
       ...student,
       imc: Number((student.weight / (student.height * student.height)).toFixed(2)),

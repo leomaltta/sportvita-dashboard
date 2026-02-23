@@ -10,7 +10,7 @@ const sidebarNavItems = [
   },
   {
     title: 'Adicionar Estudante',
-    href: '/admin/aluno',
+    href: '/admin/estudante',
   },
   {
     title: 'Adicionar Professor',

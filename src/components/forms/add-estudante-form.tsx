@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-export default function AddAlunoForm() {
+export default function AddEstudanteForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')

@@ -19,8 +19,6 @@ export async function createTeacher(
         shift: data.turno,
       },
     })
-
-    // Revalidate cache
     await revalidateTeachers()
 
     return {
@@ -53,7 +51,6 @@ export async function updateTeacher(
       },
     })
 
-    // Revalidate cache
     await revalidateTeachers()
 
     return {
@@ -75,7 +72,6 @@ export async function deleteTeacher(id: bigint): Promise<ApiResponse> {
       where: { id },
     })
 
-    // Revalidate cache
     await revalidateTeachers()
 
     return {
@@ -119,17 +115,6 @@ export async function getTeacherById(id: bigint) {
   }
 }
 
-/**
- * Gets teachers by sport
- * 
- * @param sportId - Sport ID to filter by
- * @returns Array of teachers for that sport
- * 
- * @example
- * ```ts
- * const futsalTeachers = await getTeachersBySport(1)
- * ```
- */
 export async function getTeachersBySport(sportId: number) {
   try {
     return await prisma.teacher.findMany({

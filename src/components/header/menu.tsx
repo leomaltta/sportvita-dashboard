@@ -25,8 +25,8 @@ export default function SheetMenu() {
         </button>
       </SheetTrigger>
       <SheetContent side="left">
-        <SheetHeader>
-          <SheetTitle className="mb-1 ml-2 flex items-center gap-3 text-left text-2xl">
+        <SheetHeader className="px-2">
+          <SheetTitle className="mb-1 ml-1 flex items-center gap-3 text-left text-2xl">
             <Image
               width={44}
               height={44}
@@ -38,30 +38,30 @@ export default function SheetMenu() {
         </SheetHeader>
         <Separator className="my-4" />
         <SheetClose asChild>
-          <div className="my-5 ml-3 flex flex-col gap-5 text-xl">
+          <div className="my-4 flex flex-col gap-2 px-2">
             <Button
-              className="w-[5rem] text-left text-xl font-normal"
+              className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
               onClick={() => router.push('/dashboard')}
             >
               Início
             </Button>
             <Button
-              className="w-[6rem] text-left text-xl font-normal"
+              className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
-              onClick={() => router.push('/alunos')}
+              onClick={() => router.push('/estudantes')}
             >
-              Alunos
+              Estudantes
             </Button>
             <Button
-              className="w-[9rem] text-left text-xl font-normal"
+              className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
               onClick={() => router.push('/professores')}
             >
               Professores
             </Button>
             <Button
-              className="w-[8rem] text-left text-xl font-normal"
+              className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
               onClick={() => router.push('/esportes')}
             >

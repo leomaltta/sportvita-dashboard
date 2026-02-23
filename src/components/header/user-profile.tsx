@@ -38,7 +38,7 @@ export default function UserProfile() {
         <DropdownMenuGroup>
           <DropdownMenuItem
             onClick={() => {
-              router.push('/alunos')
+              router.push('/estudantes')
             }}
             className="cursor-pointer"
           >

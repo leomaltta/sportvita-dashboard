@@ -41,66 +41,94 @@ async function main() {
 
 
   console.log('Seeding sports...')
-  const sports = await prisma.sport.createMany({
-    data: [
-      {
-        name: 'Futsal',
-        alterName: 'Futsal',
-        route: 'futsal',
-        imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
+  const sportsSeed = [
+    {
+      name: 'Futsal',
+      alterName: 'Futsal',
+      route: 'futsal',
+      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1552667466-07770ae110d0?w=1600&q=80',
+    },
+    {
+      name: 'Basquete',
+      alterName: 'Basquete',
+      route: 'basquete',
+      imageUrl: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=1600&q=80',
+    },
+    {
+      name: 'Voleibol',
+      alterName: 'Voleibol',
+      route: 'voleibol',
+      imageUrl: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1592656094267-764a45160876?w=1600&q=80',
+    },
+    {
+      name: 'Handebol',
+      alterName: 'Handebol',
+      route: 'handebol',
+      imageUrl: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1600&q=80',
+    },
+    {
+      name: 'Judo',
+      alterName: 'Judô',
+      route: 'judo',
+      imageUrl: 'https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600&q=80',
+    },
+    {
+      name: 'Karate',
+      alterName: 'Karatê',
+      route: 'karate',
+      imageUrl: 'https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=1600&q=80',
+    },
+    {
+      name: 'Gr',
+      alterName: 'Ginástica Rítmica',
+      route: 'gr',
+      imageUrl: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1600&q=80',
+    },
+    {
+      name: 'Danca',
+      alterName: 'Dança',
+      route: 'danca',
+      imageUrl: 'https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1547153760-18fc86324498?w=1600&q=80',
+    },
+    {
+      name: 'Natacao',
+      alterName: 'Natação',
+      route: 'natacao',
+      imageUrl: 'https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=800',
+      imageHeader:
+        'https://images.unsplash.com/photo-1438029071396-1e831a7fa6d8?w=1600&q=80',
+    },
+  ]
+
+  for (const sport of sportsSeed) {
+    await prisma.sport.upsert({
+      where: { route: sport.route },
+      update: {
+        name: sport.name,
+        alterName: sport.alterName,
+        imageUrl: sport.imageUrl,
+        imageHeader: sport.imageHeader,
       },
-      {
-        name: 'Basquete',
-        alterName: 'Basquete',
-        route: 'basquete',
-        imageUrl: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800',
-      },
-      {
-        name: 'Voleibol',
-        alterName: 'Voleibol',
-        route: 'voleibol',
-        imageUrl: 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800',
-      },
-      {
-        name: 'Handebol',
-        alterName: 'Handebol',
-        route: 'handebol',
-        imageUrl: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800',
-      },
-      {
-        name: 'Judo',
-        alterName: 'Judô',
-        route: 'judo',
-        imageUrl: 'https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800',
-      },
-      {
-        name: 'Karate',
-        alterName: 'Karatê',
-        route: 'karate',
-        imageUrl: 'https://images.unsplash.com/photo-1555597408-26bc8e548a46?w=800',
-      },
-      {
-        name: 'Gr',
-        alterName: 'Ginástica Rítmica',
-        route: 'gr',
-        imageUrl: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800',
-      },
-      {
-        name: 'Danca',
-        alterName: 'Dança',
-        route: 'danca',
-        imageUrl: 'https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?w=800',
-      },
-      {
-        name: 'Natacao',
-        alterName: 'Natação',
-        route: 'natacao',
-        imageUrl: 'https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=800',
-      },
-    ],
-    skipDuplicates: true,
-  })
-  console.log(`Created ${sports.count} sports\n`)
+      create: sport,
+    })
+  }
+  console.log(`Upserted ${sportsSeed.length} sports\n`)
   console.log('Seeding admin user...')
   const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@sportvita.com'
   const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin@12345'

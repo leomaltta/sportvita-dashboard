@@ -140,7 +140,7 @@ export default async function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{studentCount}</div>
-              <p className="mt-2 text-xs text-muted-foreground">Alunos cadastrados</p>
+              <p className="mt-2 text-xs text-muted-foreground">Estudantes cadastrados</p>
             </CardContent>
           </Card>
           <Card>
@@ -189,7 +189,7 @@ export default async function Dashboard() {
         <Card className="h-[500px] min-h-[50vh] w-full max-w-full pb-10">
           <CardHeader>
             <CardTitle className="text-2xl font-medium tracking-normal">Subcategorias</CardTitle>
-            <CardDescription>Resumo por IMC ideal, atual e total de alunos.</CardDescription>
+            <CardDescription>Resumo por IMC ideal, atual e total de estudantes.</CardDescription>
           </CardHeader>
           <CardContent className="mr-4">
             <SubsTableOverview currentBySub={currentBySub} studentsBySub={studentsBySub} />

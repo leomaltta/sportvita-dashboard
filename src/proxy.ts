@@ -50,7 +50,7 @@ export const config = {
     '/dashboard/:path*',
     '/esportes/:path*',
     '/professores/:path*',
-    '/alunos/:path*',
+    '/estudantes/:path*',
     '/admin/:path*',
   ],
 }

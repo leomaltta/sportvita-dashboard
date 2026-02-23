@@ -1,32 +1,9 @@
-/** 
- * Functions for calculating and analyzing Body Mass Index (BMI)
- */
-
 import { StudentWithBMI, BMIStats } from '@/types'
-
-/**
- * Calculates BMI from weight and height
- * 
- * Formula: BMI = weight(kg) / (height(m))²
- * 
- * @param weight - Weight in kilograms
- * @param height - Height in meters
- * @returns BMI value rounded to 2 decimal places
- * 
- */
 export function calculateBMI(weight: number, height: number): number {
   if (height === 0) return 0
   const bmi = weight / (height * height)
   return Number(bmi.toFixed(2))
 }
-
-/**
- * Adds BMI to student data
- * 
- * @param student - Student object with weight and height
- * @returns Student object with calculated BMI
- * 
- */
 export function addBMIToStudent(student: {
   weight: number
   height: number
@@ -38,15 +15,6 @@ export function addBMIToStudent(student: {
   } as StudentWithBMI
 }
 
-
-/**
- * Calculates average BMI for a subcategory
- * 
- * @param students - Array of students with BMI
- * @param subCategory - Age group
- * @returns Object with average BMI and count
- * 
- */
 export function calculateSubCategoryAverage(
   students: StudentWithBMI[],
   subCategory: string,
@@ -67,14 +35,6 @@ export function calculateSubCategoryAverage(
   }
 }
 
-/**
- * Calculates sport-wide BMI statistics
- * 
- * @param students - Array of students with BMI
- * @param sportName - Sport name to filter by
- * @returns Overall statistics including highlight subcategory
- * 
- */
 export function calculateSportStats(
   students: StudentWithBMI[],
   sportName: string,
@@ -84,17 +44,13 @@ export function calculateSportStats(
   if (sportStudents.length === 0) {
     return { media: 0, count: 0, subDestaque: '' }
   }
-
-  // Get unique subcategories
   const subCategories = Array.from(new Set(sportStudents.map((s) => s.subCategory)))
 
-  // Calculate average for each subcategory
   const subStats = subCategories.map((sub) => ({
     sub,
     ...calculateSubCategoryAverage(sportStudents, sub),
   }))
 
-  // Ideal BMI values by age group
   const idealBMI: Record<string, number> = {
     'Sub-6': 14.68,
     'Sub-8': 16.18,
@@ -104,7 +60,6 @@ export function calculateSportStats(
     'Sub-17': 20.96,
   }
 
-  // Find subcategory closest to ideal BMI
   let closestSub = ''
   let minDifference = Infinity
 
@@ -118,7 +73,6 @@ export function calculateSportStats(
     }
   })
 
-  // Calculate overall average
   const totalSum = sportStudents.reduce((acc, s) => acc + s.imc, 0)
   const overallAverage = totalSum / sportStudents.length
 
@@ -129,16 +83,8 @@ export function calculateSportStats(
   }
 }
 
-/**
- * Classifies BMI status
- * 
- * @param bmi - BMI value
- * @param age - Student age
- * @returns Classification string
- */
 
 export function classifyBMI(bmi: number, age: number): string {
-  // Simplified classification for children/adolescents
   if (age < 18) {
     if (bmi < 14) return 'Abaixo do peso'
     if (bmi < 23) return 'Normal'
@@ -146,20 +92,13 @@ export function classifyBMI(bmi: number, age: number): string {
     return 'Obesidade'
   }
 
-  // Adult classification
   if (bmi < 18.5) return 'Abaixo do peso'
   if (bmi < 25) return 'Normal'
   if (bmi < 30) return 'Sobrepeso'
   return 'Obesidade'
 }
 
-/**
- * Gets BMI status color
- * 
- * @param classification - BMI classification
- * @returns Tailwind color class
- * 
- */
+
 export function getBMIColor(classification: string): string {
   switch (classification) {
     case 'Normal':

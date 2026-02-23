@@ -36,13 +36,13 @@ export default function Header() {
           </Link>
           <Link
             className={cn(
-              pathname.startsWith('/alunos')
+              pathname.startsWith('/estudantes')
                 ? 'text-foreground'
                 : 'text-muted-foreground transition-colors hover:text-foreground',
             )}
-            href="/alunos"
+            href="/estudantes"
           >
-            Alunos
+            Estudantes
           </Link>
           <Link
             className={cn(

@@ -3,13 +3,6 @@
 import prisma from '../../../prisma/client'
 import { ApiResponse } from '@/types'
 
-/**
- * Updates user profile
- * 
- * @param email - User email (identifier)
- * @param data - Updated user data
- * @returns API response with success/error
- */
 export async function updateUser(
   email: string,
   data: { name: string; email: string },
@@ -30,12 +23,6 @@ export async function updateUser(
   }
 }
 
-/**
- * Gets user by email
- * 
- * @param email - User email
- * @returns User object or null
- */
 export async function getUserByEmail(email: string) {
   try {
     const user = await prisma.user.findUnique({
