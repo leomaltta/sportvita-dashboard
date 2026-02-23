@@ -1,5 +1,7 @@
-# SportVita Dashboard
-
+# <img src="./public/logo.png" alt="SportVita logo" width="40" style="vertical-align: middle;" /> SportVita Dashboard 
+<p align="left">
+  <b>English</b> | <a href="README.pt-BR.md">Português</a>
+</p>
 SportVita is a web dashboard built to help schools track **student health** through sports.
 
 This repo is a **showcase** of the dashboard side of SportVita: indicators, comparisons, and access rules designed around real school workflows (coordination + teachers).
@@ -8,9 +10,10 @@ This repo is a **showcase** of the dashboard side of SportVita: indicators, comp
 Sport Vita is the broader concept: **high performance & long-term vitality** using simple, practical visibility instead of spreadsheets and scattered notes.
 
 If you want the partner/pitch view of the idea (the “why”), check the presentation site:
+
 🔗 https://sportvita.vercel.app
 
-## What you can do in the Dashboard
+## ✅ What you can do in the Dashboard
 - Global dashboard with **BMI averages** by category
 - Sport-specific dashboards with dedicated indicators
 - **BMI classification** with a clear visual status
@@ -21,7 +24,7 @@ If you want the partner/pitch view of the idea (the “why”), check the presen
 
 
 
-### Sport insights
+## 🧠 Sport insights
 Each sport has a dedicated page focused on “health + development” by subcategory, the main goal is to give an administrator/coordinator a clearer way to talk about sports with context, for example:
 - understanding the **average intensity** of each sport (calories/hour)
 - seeing how that changes by **aged-subcategories** (because Sub-6 and Sub-12 are not comparable).
@@ -37,7 +40,7 @@ In practice: a coordinator can use this to better guide conversations with paren
   - cognitive benefits
   - ideal starting age guidance
 
-## Tech stack
+## 💻 Tech stack
 - Next.js 16 (App Router)
 - TypeScript 5
 - Prisma 7
@@ -46,7 +49,7 @@ In practice: a coordinator can use this to better guide conversations with paren
 - Tailwind CSS + shadcn/ui
 - Recharts
 
-## Architecture (quick map)
+## 🧱 Architecture (quick map)
 - `src/app`: routes and layouts
 - `src/components`: UI, tables, charts, forms
 - `src/lib/actions`: server-side reads/writes (Server Actions)
@@ -54,7 +57,7 @@ In practice: a coordinator can use this to better guide conversations with paren
 - `src/lib/sport-insights`: calorie + educational “sport profile” logic used by the Sports pages
 - `prisma`: schema, client, and seed
 
-## Access rules
+## 🔐 Access rules
 - `admin`: full access
 - `prof`: restricted to their assigned sport
 - Sensitive student operations (create/edit/delete) are enforced on the server
@@ -64,14 +67,14 @@ Production environment variable:
 TEACHER_DEFAULT_PASSWORD="set-a-strong-password"
 ```
 
-## Tests
+## 🔧 Tests
 Unit tests cover critical logic such as:
 - home authentication redirect
 - root layout behavior
 - BMI classification (`classifyBMI`)
 - route authorization by role/sport (`authz`)
 
-## Links
+## 🔗 Links
 - Presentation site: https://sportvita.vercel.app
 - Dashboard site: https://sportvita-dashboard.vercel.app 
 - Repository: https://github.com/leomaltta/sportvita-dashboard
