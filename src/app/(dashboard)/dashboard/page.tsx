@@ -11,12 +11,133 @@ import {
 } from '@/components/ui/card'
 import {
   AreaChartIcon,
+  AlertTriangle,
+  CheckCircle2,
+  CircleAlert,
   GraduationCap,
+  Info,
+  LucideIcon,
   SparklesIcon,
   TrendingUpIcon,
 } from 'lucide-react'
 import Link from 'next/link'
 import { classifyBMI } from '@/lib/bmi'
+
+interface StatusMeta {
+  label: string
+  className: string
+  Icon: LucideIcon
+}
+
+function getBmiStatus(value: number): StatusMeta {
+  if (value < 14) {
+    return {
+      label: 'Abaixo do ideal',
+      className: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
+      Icon: CircleAlert,
+    }
+  }
+  if (value < 23) {
+    return {
+      label: 'Saudável',
+      className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+      Icon: CheckCircle2,
+    }
+  }
+  if (value < 27) {
+    return {
+      label: 'Atenção',
+      className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+      Icon: AlertTriangle,
+    }
+  }
+  return {
+    label: 'Crítico',
+    className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    Icon: AlertTriangle,
+  }
+}
+
+function getParticipationStatus(value: number): StatusMeta {
+  if (value >= 75) {
+    return {
+      label: 'Ótimo',
+      className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+      Icon: CheckCircle2,
+    }
+  }
+  if (value >= 50) {
+    return {
+      label: 'Bom',
+      className: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+      Icon: Info,
+    }
+  }
+  if (value >= 30) {
+    return {
+      label: 'Atenção',
+      className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+      Icon: AlertTriangle,
+    }
+  }
+  return {
+    label: 'Crítico',
+    className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    Icon: AlertTriangle,
+  }
+}
+
+function getCoverageStatus(totalStudents: number): StatusMeta {
+  const studentsPerSub = totalStudents / 6
+  if (studentsPerSub >= 20) {
+    return {
+      label: 'Alta cobertura',
+      className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+      Icon: CheckCircle2,
+    }
+  }
+  if (studentsPerSub >= 10) {
+    return {
+      label: 'Cobertura média',
+      className: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+      Icon: Info,
+    }
+  }
+  return {
+    label: 'Baixa cobertura',
+    className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    Icon: CircleAlert,
+  }
+}
+
+function getHighlightStatus(gap: number): StatusMeta {
+  if (gap <= 0.5) {
+    return {
+      label: 'Excelente',
+      className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+      Icon: CheckCircle2,
+    }
+  }
+  if (gap <= 1) {
+    return {
+      label: 'Boa',
+      className: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+      Icon: Info,
+    }
+  }
+  if (gap <= 2) {
+    return {
+      label: 'Moderada',
+      className: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+      Icon: CircleAlert,
+    }
+  }
+  return {
+    label: 'Distante',
+    className: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    Icon: AlertTriangle,
+  }
+}
 
 async function getDashboardData() {
   const [sports, students, ideal] = await Promise.all([
@@ -98,6 +219,7 @@ async function getDashboardData() {
     studentCount: students.length,
     topSub,
     topSubSport,
+    topGap: Number(bestGap.toFixed(2)),
     participation,
     currentBySub,
     studentsBySub,
@@ -115,12 +237,18 @@ export default async function Dashboard() {
     participation,
     currentBySub,
     studentsBySub,
+    topGap,
   } =
     await getDashboardData()
 
+  const bmiStatus = getBmiStatus(avgImc)
+  const coverageStatus = getCoverageStatus(studentCount)
+  const participationStatus = getParticipationStatus(participation)
+  const highlightStatus = getHighlightStatus(topGap)
+
   return (
-    <main className="flex min-h-screen min-w-full flex-col gap-9">
-      <section className="mx-5 mt-8 flex flex-row justify-between md:mx-10">
+    <main className="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col gap-8 px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+      <section className="flex flex-row items-center justify-between">
         <Link href="/dashboard">
           <h1 className="text-3xl font-semibold lg:text-4xl">Dashboard</h1>
         </Link>
@@ -128,7 +256,7 @@ export default async function Dashboard() {
       </section>
 
       <section>
-        <div className="mx-7 grid grid-cols-1 gap-8 p-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-[1rem] font-medium tracking-normal">Média IMC</CardTitle>
@@ -136,6 +264,12 @@ export default async function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{avgImc.toFixed(2)}</div>
+              <div
+                className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${bmiStatus.className}`}
+              >
+                <bmiStatus.Icon className="h-3.5 w-3.5" />
+                {bmiStatus.label}
+              </div>
               <p className="mt-2 text-xs text-muted-foreground">Visão geral dos estudantes</p>
             </CardContent>
           </Card>
@@ -148,19 +282,33 @@ export default async function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{studentCount}</div>
+              <div
+                className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${coverageStatus.className}`}
+              >
+                <coverageStatus.Icon className="h-3.5 w-3.5" />
+                {coverageStatus.label}
+              </div>
               <p className="mt-2 text-xs text-muted-foreground">Estudantes cadastrados</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-[1rem] font-medium tracking-normal">
-                Índice de participação
+                Taxa de IMC normal
               </CardTitle>
               <TrendingUpIcon />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{participation}%</div>
-              <p className="mt-2 text-xs text-muted-foreground">Métrica provisória geral</p>
+              <div
+                className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${participationStatus.className}`}
+              >
+                <participationStatus.Icon className="h-3.5 w-3.5" />
+                {participationStatus.label}
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Percentual atual de estudantes na faixa normal
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -172,6 +320,12 @@ export default async function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{topSub}</div>
+              <div
+                className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${highlightStatus.className}`}
+              >
+                <highlightStatus.Icon className="h-3.5 w-3.5" />
+                {highlightStatus.label}
+              </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 Esporte: {topSubSport}
               </p>
@@ -180,7 +334,7 @@ export default async function Dashboard() {
         </div>
       </section>
 
-      <section className="mx-4 flex flex-col items-center gap-10 md:mx-7 md:grid md:grid-cols-2 lg:mx-8 lg:flex-row">
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Card className="h-[500px] min-h-[50vh] w-full max-w-full pb-10">
           <CardHeader>
             <CardTitle className="text-2xl font-medium tracking-normal">
