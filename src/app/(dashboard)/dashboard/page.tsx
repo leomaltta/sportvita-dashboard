@@ -16,6 +16,7 @@ import {
   TrendingUpIcon,
 } from 'lucide-react'
 import Link from 'next/link'
+import { classifyBMI } from '@/lib/bmi'
 
 async function getDashboardData() {
   const [sports, students, ideal] = await Promise.all([
@@ -35,10 +36,15 @@ async function getDashboardData() {
   const sumBySub: Record<string, number> = {}
   const sumBySportSub: Record<string, { total: number; count: number }> = {}
   let bmiSum = 0
+  let normalBmiCount = 0
 
   for (const student of students) {
     const bmi = student.weight / (student.height * student.height)
+    const bmiStatus = classifyBMI(bmi, Number(student.subCategory.replace('Sub-', '')))
     bmiSum += bmi
+    if (bmiStatus === 'Normal') {
+      normalBmiCount += 1
+    }
     studentsBySub[student.subCategory] = (studentsBySub[student.subCategory] ?? 0) + 1
     sumBySub[student.subCategory] = (sumBySub[student.subCategory] ?? 0) + bmi
     const key = `${student.sportName}::${student.subCategory}`
@@ -81,7 +87,9 @@ async function getDashboardData() {
     }
   }
 
-  const participation = 60 + Math.floor(Math.random() * 36)
+  const participation = students.length
+    ? Math.round((normalBmiCount / students.length) * 100)
+    : 0
 
   return {
     sports,

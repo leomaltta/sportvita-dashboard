@@ -1,5 +1,6 @@
 import { withAuth, NextRequestWithAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
+import { canAccessPath, getProfessorDefaultRedirect } from '@/lib/authz'
 
 export default withAuth(
   function proxy(request: NextRequestWithAuth) {
@@ -16,34 +17,23 @@ export default withAuth(
       return NextResponse.rewrite(new URL('/denied', request.url))
     }
 
-    if (role === 'admin') {
-      return NextResponse.next()
+    if (role === 'prof' && sportRoute) {
+      const redirectPath = getProfessorDefaultRedirect(pathname, sportRoute)
+      if (redirectPath) {
+        return NextResponse.redirect(new URL(redirectPath, request.url))
+      }
     }
 
-    if (role === 'prof') {
-      if (!sportRoute) {
-        return NextResponse.rewrite(new URL('/denied', request.url))
+    if (!canAccessPath({ role, sportRoute, pathname })) {
+      if (role === 'admin') {
+        return NextResponse.next()
       }
 
-      if (pathname === '/' || pathname === '/dashboard') {
-        return NextResponse.redirect(
-          new URL(`/dashboard/${sportRoute}`, request.url),
-        )
+      if (pathname === '/login') {
+        return NextResponse.next()
       }
 
-      if (pathname === '/esportes') {
-        return NextResponse.redirect(new URL(`/esportes/${sportRoute}`, request.url))
-      }
-
-      const allowedPaths = new Set([
-        '/estudantes',
-        `/dashboard/${sportRoute}`,
-        `/esportes/${sportRoute}`,
-      ])
-
-      if (!allowedPaths.has(pathname)) {
-        return NextResponse.rewrite(new URL('/denied', request.url))
-      }
+      return NextResponse.rewrite(new URL('/denied', request.url))
     }
 
     return NextResponse.next()

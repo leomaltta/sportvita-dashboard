@@ -8,8 +8,24 @@ import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../constants'
 
 const DEFAULT_TEACHER_PASSWORD = 'prof@12345'
 
+function resolveTeacherDefaultPassword(): string {
+  const password = process.env.TEACHER_DEFAULT_PASSWORD?.trim()
+
+  if (password) {
+    return password
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'TEACHER_DEFAULT_PASSWORD is required in production for teacher account provisioning.',
+    )
+  }
+
+  return DEFAULT_TEACHER_PASSWORD
+}
+
 async function getDefaultTeacherPasswordHash() {
-  return bcrypt.hash(DEFAULT_TEACHER_PASSWORD, 10)
+  return bcrypt.hash(resolveTeacherDefaultPassword(), 10)
 }
 
 async function syncTeacherUser(name: string, email: string): Promise<ApiResponse> {
