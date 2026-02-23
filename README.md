@@ -1,23 +1,43 @@
-# Sport Vita Dashboard
+# SportVita Dashboard
 
-Plataforma web para monitoramento de saude escolar por esporte e subcategoria (Sub-6 a Sub-17), com foco em uso real por coordenacao e professores.
+SportVita is a web dashboard built to help schools track **student health** through sports.
 
-## Contexto
+This repo is a **showcase** of the dashboard side of SportVita: indicators, comparisons, and access rules designed around real school workflows (coordination + teachers).
 
-O projeto foi desenvolvido para apoiar o acompanhamento fisico de estudantes em ambiente escolar, centralizando dados que antes ficavam dispersos em planilhas e processos manuais.
+## Sport Vita (project context)
+Sport Vita is the broader concept: **high performance & long-term vitality** using simple, practical visibility instead of spreadsheets and scattered notes.
 
-## Principais funcionalidades
+If you want the partner/pitch view of the idea (the “why”), check the presentation site:
+🔗 https://sportvita.vercel.app
 
-- Dashboard geral com medias de IMC por subcategoria
-- Dashboard por esporte com indicadores especificos
-- Classificacao de IMC com status visual
-- Gestao de estudantes e professores
-- Painel administrativo para cadastro de usuarios
-- Controle de acesso por role (`admin` e `prof`)
-- Escopo por esporte para professor (acessa apenas o proprio esporte)
+## What you can do in the Dashboard
+- Global dashboard with **BMI averages** by category
+- Sport-specific dashboards with dedicated indicators
+- **BMI classification** with a clear visual status
+- Student and teacher management
+- Admin panel for user provisioning
+- Role-based access control
+- Sport-scoped access for teachers (teachers only access their own sport)
 
-## Stack
 
+
+### Sport insights
+Each sport has a dedicated page focused on “health + development” by subcategory, the main goal is to give an administrator/coordinator a clearer way to talk about sports with context, for example:
+- understanding the **average intensity** of each sport (calories/hour)
+- seeing how that changes by **aged-subcategories** (because Sub-6 and Sub-12 are not comparable).
+
+In practice: a coordinator can use this to better guide conversations with parents/students (e.g., *“this sport tends to be more demanding on average”*), while still respecting age differences.
+- **Avg calories/hour (kcal/h)** for the sport (an educational intensity estimate)
+- **Calories/hour by subcategory** (e.g., Sub-6 vs Sub-12 within the same sport)
+- **Calorie ranking across sports** to compare average intensity
+- **Subcategory status** to quickly communicate how each group is doing
+- **Educational profile** of the sport:
+  - main muscles involved
+  - physical benefits
+  - cognitive benefits
+  - ideal starting age guidance
+
+## Tech stack
 - Next.js 16 (App Router)
 - TypeScript 5
 - Prisma 7
@@ -26,48 +46,32 @@ O projeto foi desenvolvido para apoiar o acompanhamento fisico de estudantes em 
 - Tailwind CSS + shadcn/ui
 - Recharts
 
-## Arquitetura resumida
+## Architecture (quick map)
+- `src/app`: routes and layouts
+- `src/components`: UI, tables, charts, forms
+- `src/lib/actions`: server-side reads/writes (Server Actions)
+- `src/lib`: business rules utilities (BMI, authorization, constants)
+- `src/lib/sport-insights`: calorie + educational “sport profile” logic used by the Sports pages
+- `prisma`: schema, client, and seed
 
-- `src/app`: rotas e layouts
-- `src/components`: UI, tabelas, graficos e formularios
-- `src/lib/actions`: mutacoes e leitura no servidor (Server Actions)
-- `src/lib`: regras de negocio utilitarias (IMC, authz, constantes)
-- `prisma`: schema, client e seed
+## Access rules
+- `admin`: full access
+- `prof`: restricted to their assigned sport
+- Sensitive student operations (create/edit/delete) are enforced on the server
 
-## Seguranca e acesso
-
-- `admin`: acesso completo
-- `prof`: acesso restrito ao proprio esporte
-- Operacoes sensiveis de estudantes (criar/editar/excluir) protegidas no servidor
-- Provisionamento de professor cria usuario com senha padrao configuravel por ambiente
-
-Variavel recomendada para producao:
-
+Production environment variable:
 ```env
-TEACHER_DEFAULT_PASSWORD="defina-uma-senha-forte"
+TEACHER_DEFAULT_PASSWORD="set-a-strong-password"
 ```
 
-## Scripts
-
-```bash
-npm run dev
-npm run build
-npm run test
-npm run db:generate
-npm run db:push
-npm run db:seed
-```
-
-## Testes
-
-O projeto inclui testes unitarios para regras de negocio criticas:
-
-- redirecionamento de autenticacao da home
-- layout raiz
-- classificacao de IMC (`classifyBMI`)
-- autorizacao de rotas por role/esporte (`authz`)
+## Tests
+Unit tests cover critical logic such as:
+- home authentication redirect
+- root layout behavior
+- BMI classification (`classifyBMI`)
+- route authorization by role/sport (`authz`)
 
 ## Links
-
-- App de apresentacao: https://sportvita.vercel.app
-- Repositorio: https://github.com/leomaltta/sport-vita-dashboard-v1
+- Presentation site: https://sportvita.vercel.app
+- Dashboard site: https://sportvita-dashboard.vercel.app 
+- Repository: https://github.com/leomaltta/sportvita-dashboard
