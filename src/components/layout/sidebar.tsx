@@ -9,7 +9,6 @@ import {
   Users,
   GraduationCap,
   Trophy,
-  Settings,
   Menu,
   X,
 } from 'lucide-react'
