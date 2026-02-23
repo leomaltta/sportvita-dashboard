@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DeniedPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 dark:from-gray-900 dark:to-gray-800">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 dark:from-zinc-950 dark:to-zinc-900">
       <div className="text-center">
         <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/20">
           <ShieldX className="h-12 w-12 text-red-600 dark:text-red-400" />
