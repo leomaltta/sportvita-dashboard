@@ -13,9 +13,23 @@ import { Button } from '@/components/ui/button'
 import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 export default function SheetMenu() {
   const router = useRouter()
+  const { data: session } = useSession()
+  const isAdmin = session?.user.role === 'admin'
+  const sportRoute = session?.user.sportRoute
+  const dashboardHref = isAdmin
+    ? '/dashboard'
+    : sportRoute
+      ? `/dashboard/${sportRoute}`
+      : '/denied'
+  const sportsHref = isAdmin
+    ? '/esportes'
+    : sportRoute
+      ? `/esportes/${sportRoute}`
+      : '/denied'
 
   return (
     <Sheet>
@@ -42,7 +56,7 @@ export default function SheetMenu() {
             <Button
               className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push(dashboardHref)}
             >
               Início
             </Button>
@@ -53,19 +67,21 @@ export default function SheetMenu() {
             >
               Estudantes
             </Button>
+            {isAdmin ? (
+              <Button
+                className="w-full justify-start px-2 text-left text-lg font-normal"
+                variant="link"
+                onClick={() => router.push('/professores')}
+              >
+                Professores
+              </Button>
+            ) : null}
             <Button
               className="w-full justify-start px-2 text-left text-lg font-normal"
               variant="link"
-              onClick={() => router.push('/professores')}
+              onClick={() => router.push(sportsHref)}
             >
-              Professores
-            </Button>
-            <Button
-              className="w-full justify-start px-2 text-left text-lg font-normal"
-              variant="link"
-              onClick={() => router.push('/esportes')}
-            >
-              Esportes
+              {isAdmin ? 'Esportes' : 'Esporte'}
             </Button>
           </div>
         </SheetClose>

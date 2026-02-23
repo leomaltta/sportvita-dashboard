@@ -58,7 +58,7 @@ async function getDashboardData() {
   const chartData = subcategories.map((sub) => ({
     name: sub.replace('Sub-', '') + ' anos',
     Ideal: idealBySub[sub] ?? 0,
-    Atual: currentBySub[sub] ?? 0,
+    Atual: Number((currentBySub[sub] ?? 0).toFixed(2)),
   }))
 
   const avgImc = students.length ? bmiSum / students.length : 0

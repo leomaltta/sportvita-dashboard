@@ -77,7 +77,7 @@ async function getSportStats(route: string) {
   const subcategories = ['Sub-6', 'Sub-8', 'Sub-10', 'Sub-12', 'Sub-14', 'Sub-17']
   const chartData = subcategories.map((sub) => ({
     name: sub.replace('Sub-', '') + ' anos',
-    Atual: statsBySub[sub]?.media ?? 0,
+    Atual: Number((statsBySub[sub]?.media ?? 0).toFixed(2)),
     Ideal: idealBySub[sub] ?? 0,
   }))
 

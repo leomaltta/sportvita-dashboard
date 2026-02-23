@@ -1,14 +1,77 @@
 'use server'
 
+import bcrypt from 'bcrypt'
 import prisma from '../../../prisma/client'
 import { revalidateTeachers } from './revalidation'
 import { ApiResponse, TeacherFormData } from '@/types'
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../constants'
 
+const DEFAULT_TEACHER_PASSWORD = 'prof@12345'
+
+async function getDefaultTeacherPasswordHash() {
+  return bcrypt.hash(DEFAULT_TEACHER_PASSWORD, 10)
+}
+
+async function syncTeacherUser(name: string, email: string): Promise<ApiResponse> {
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+    select: { role: true },
+  })
+
+  if (existingUser && existingUser.role !== 'prof') {
+    return {
+      success: false,
+      error: 'Este e-mail já está vinculado a um usuário não professor.',
+    }
+  }
+
+  if (existingUser) {
+    await prisma.user.update({
+      where: { email },
+      data: {
+        name,
+        role: 'prof',
+      },
+    })
+
+    return { success: true }
+  }
+
+  const passwordHash = await getDefaultTeacherPasswordHash()
+
+  await prisma.user.create({
+    data: {
+      name,
+      email,
+      password: passwordHash,
+      role: 'prof',
+    },
+  })
+
+  return { success: true }
+}
+
 export async function createTeacher(
   data: TeacherFormData,
 ): Promise<ApiResponse> {
   try {
+    const teacherWithEmail = await prisma.teacher.findFirst({
+      where: { email: data.email },
+      select: { id: true },
+    })
+
+    if (teacherWithEmail) {
+      return {
+        success: false,
+        error: 'Já existe um(a) professor(a) com esse e-mail.',
+      }
+    }
+
+    const syncedUser = await syncTeacherUser(data.name, data.email)
+    if (!syncedUser.success) {
+      return syncedUser
+    }
+
     await prisma.teacher.create({
       data: {
         name: data.name,
@@ -19,6 +82,7 @@ export async function createTeacher(
         shift: data.turno,
       },
     })
+
     await revalidateTeachers()
 
     return {
@@ -39,6 +103,38 @@ export async function updateTeacher(
   data: TeacherFormData,
 ): Promise<ApiResponse> {
   try {
+    const teacherWithEmail = await prisma.teacher.findFirst({
+      where: {
+        email: data.email,
+        id: { not: id },
+      },
+      select: { id: true },
+    })
+
+    if (teacherWithEmail) {
+      return {
+        success: false,
+        error: 'Já existe um(a) professor(a) com esse e-mail.',
+      }
+    }
+
+    const currentTeacher = await prisma.teacher.findUnique({
+      where: { id },
+      select: { email: true },
+    })
+
+    if (!currentTeacher) {
+      return {
+        success: false,
+        error: ERROR_MESSAGES.TEACHER_NOT_FOUND,
+      }
+    }
+
+    const syncedUser = await syncTeacherUser(data.name, data.email)
+    if (!syncedUser.success) {
+      return syncedUser
+    }
+
     await prisma.teacher.update({
       where: { id },
       data: {
@@ -50,6 +146,15 @@ export async function updateTeacher(
         shift: data.turno,
       },
     })
+
+    if (currentTeacher.email !== data.email) {
+      await prisma.user.deleteMany({
+        where: {
+          email: currentTeacher.email,
+          role: 'prof',
+        },
+      })
+    }
 
     await revalidateTeachers()
 
@@ -68,8 +173,27 @@ export async function updateTeacher(
 
 export async function deleteTeacher(id: bigint): Promise<ApiResponse> {
   try {
+    const teacher = await prisma.teacher.findUnique({
+      where: { id },
+      select: { email: true },
+    })
+
+    if (!teacher) {
+      return {
+        success: false,
+        error: ERROR_MESSAGES.TEACHER_NOT_FOUND,
+      }
+    }
+
     await prisma.teacher.delete({
       where: { id },
+    })
+
+    await prisma.user.deleteMany({
+      where: {
+        email: teacher.email,
+        role: 'prof',
+      },
     })
 
     await revalidateTeachers()

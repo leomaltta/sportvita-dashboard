@@ -21,10 +21,15 @@ import { useRouter } from 'next/navigation'
 
 interface StudentsTableProps {
   students: StudentWithBMI[]
+  canManage?: boolean
 }
 
 
-export default function StudentsTable({ students }: StudentsTableProps) {
+export default function StudentsTable({
+  students,
+  canManage = true,
+}: StudentsTableProps) {
+
   const router = useRouter()
   const [search, setSearch] = useState('')
   const [isDeleting, setIsDeleting] = useState<bigint | null>(null)
@@ -55,12 +60,11 @@ export default function StudentsTable({ students }: StudentsTableProps) {
 
   return (
     <div className="space-y-4">
-      {/* Search */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <Input
-            placeholder="Buscar por nome, matrícula ou esporte..."
+            placeholder={canManage ? "Buscar por nome, matrícula ou esporte..." :"Buscar por nome ou matrícula"}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10"
@@ -71,7 +75,6 @@ export default function StudentsTable({ students }: StudentsTableProps) {
         </span>
       </div>
 
-      {/* Table */}
       <Card>
         <Table>
           <TableHeader>
@@ -85,13 +88,13 @@ export default function StudentsTable({ students }: StudentsTableProps) {
               <TableHead>Altura</TableHead>
               <TableHead>IMC</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
+              {canManage ? <TableHead className="text-right">Ações</TableHead> : null}
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredStudents.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={10} className="text-center">
+                <TableCell colSpan={canManage ? 10 : 9} className="text-center">
                   Nenhum estudante encontrado
                 </TableCell>
               </TableRow>
@@ -117,23 +120,25 @@ export default function StudentsTable({ students }: StudentsTableProps) {
                     <TableCell>
                       <span className={colorClass}>{classification}</span>
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <StudentDialog mode="edit" student={student}>
-                          <Button variant="ghost" size="icon">
-                            <Pencil className="h-4 w-4" />
+                    {canManage ? (
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <StudentDialog mode="edit" student={student}>
+                            <Button variant="ghost" size="icon">
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                          </StudentDialog>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleDelete(student.id)}
+                            disabled={isDeleting === student.id}
+                          >
+                            <Trash2 className="h-4 w-4 text-red-600" />
                           </Button>
-                        </StudentDialog>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleDelete(student.id)}
-                          disabled={isDeleting === student.id}
-                        >
-                          <Trash2 className="h-4 w-4 text-red-600" />
-                        </Button>
-                      </div>
-                    </TableCell>
+                         </div>
+                      </TableCell>
+                    ) : null}
                   </TableRow>
                 )
               })

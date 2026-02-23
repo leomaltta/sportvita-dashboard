@@ -42,6 +42,9 @@ export default function LineImcComparisonChartDynamic({
         <YAxis />
         <Tooltip
           contentStyle={{ backgroundColor: 'hsl(var(--primary-foreground))' }}
+          formatter={(value) =>
+            typeof value === 'number' ? value.toFixed(2) : value
+          }
         />
         <Legend />
         <Line

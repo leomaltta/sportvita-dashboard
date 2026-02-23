@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { cn } from '@/lib/utils'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import SheetMenu from './menu'
@@ -10,6 +11,19 @@ import UserProfile from './user-profile'
 
 export default function Header() {
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const isAdmin = session?.user.role === 'admin'
+  const sportRoute = session?.user.sportRoute
+  const dashboardHref = isAdmin
+    ? '/dashboard'
+    : sportRoute
+      ? `/dashboard/${sportRoute}`
+      : '/denied'
+  const sportsHref = isAdmin
+    ? '/esportes'
+    : sportRoute
+      ? `/esportes/${sportRoute}`
+      : '/denied'
 
   return (
     <header className="mx-auto my-2 flex w-full max-w-[40rem] justify-between p-3 md:max-w-screen-2xl lg:max-w-[90rem]">
@@ -30,7 +44,7 @@ export default function Header() {
                 ? 'text-foreground'
                 : 'text-muted-foreground transition-colors hover:text-foreground',
             )}
-            href="/dashboard"
+            href={dashboardHref}
           >
             Início
           </Link>
@@ -44,25 +58,27 @@ export default function Header() {
           >
             Estudantes
           </Link>
-          <Link
-            className={cn(
-              pathname.startsWith('/professores')
-                ? 'text-foreground'
-                : 'text-muted-foreground transition-colors hover:text-foreground',
-            )}
-            href="/professores"
-          >
-            Professores
-          </Link>
+          {isAdmin ? (
+            <Link
+              className={cn(
+                pathname.startsWith('/professores')
+                  ? 'text-foreground'
+                  : 'text-muted-foreground transition-colors hover:text-foreground',
+              )}
+              href="/professores"
+            >
+              Professores
+            </Link>
+          ) : null}
           <Link
             className={cn(
               pathname.startsWith('/esportes')
                 ? 'text-foreground'
                 : 'text-muted-foreground transition-colors hover:text-foreground',
             )}
-            href="/esportes"
+            href={sportsHref}
           >
-            Esportes
+            {isAdmin ? 'Esportes' : 'Esporte'}
           </Link>
         </div>
       </div>

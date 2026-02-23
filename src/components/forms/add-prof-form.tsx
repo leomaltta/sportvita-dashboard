@@ -70,6 +70,9 @@ export default function AddProfForm({ sports }: AddProfFormProps) {
       {error ? (
         <div className="rounded-md bg-red-100 p-3 text-sm text-red-800">{error}</div>
       ) : null}
+      <p className="text-xs text-muted-foreground">
+        Login do professor: e-mail cadastrado e senha padrão <strong>prof@12345</strong>.
+      </p>
 
       <div className="space-y-2">
         <Label>Nome</Label>

@@ -16,6 +16,10 @@ const sidebarNavItems = [
     title: 'Adicionar Professor',
     href: '/admin/professor',
   },
+  {
+    title: 'Adicionar Usuário',
+    href: '/admin/usuario',
+  },
 ]
 
 export default async function SettingsLayout({

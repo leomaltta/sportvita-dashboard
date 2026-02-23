@@ -5,11 +5,28 @@ import prisma from '../../../prisma/client'
 import { revalidateStudents } from './revalidation'
 import { ApiResponse, StudentFormData } from '@/types'
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../constants'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/[...nextauth]/options'
+
+async function ensureAdminAccess(): Promise<ApiResponse | null> {
+  const session = await getServerSession(authOptions)
+  if (!session || session.user.role !== 'admin') {
+    return {
+      success: false,
+      error: ERROR_MESSAGES.UNAUTHORIZED,
+    }
+  }
+
+  return null
+}
 
 export async function createStudent(
   data: StudentFormData,
 ): Promise<ApiResponse> {
   try {
+    const accessError = await ensureAdminAccess()
+    if (accessError) return accessError
+
     await prisma.student.create({
       data: {
         name: data.nome,
@@ -44,6 +61,9 @@ export async function updateStudent(
   data: StudentFormData,
 ): Promise<ApiResponse> {
   try {
+    const accessError = await ensureAdminAccess()
+    if (accessError) return accessError
+
     await prisma.student.update({
       where: { id },
       data: {
@@ -76,6 +96,9 @@ export async function updateStudent(
 
 export async function deleteStudent(id: bigint): Promise<ApiResponse> {
   try {
+    const accessError = await ensureAdminAccess()
+    if (accessError) return accessError
+
     await prisma.student.delete({
       where: { id },
     })
