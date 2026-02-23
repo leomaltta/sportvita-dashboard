@@ -3,14 +3,14 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function revalidateStudents() {
-  revalidateTag('students')
+  revalidateTag('students', 'max')
   revalidatePath('/estudantes')
   revalidatePath('/dashboard/[slug]', 'page')
 }
 
 
 export async function revalidateTeachers() {
-  revalidateTag('teachers')
+  revalidateTag('teachers', 'max')
   revalidatePath('/professores')
 }
 
