@@ -10,6 +10,7 @@ Este repositório é um **showcase** do lado “dashboard” do SportVita: indic
 A Sport Vita é o conceito mais amplo: **alta performance & vitalidade contínua**, com uma usuabilidade simples e prática no lugar de planilhas e anotações espalhadas.
 
 Se você quiser ver a visão mais "pitch” (o “porquê” do projeto), acesse o site de apresentação:
+
 🔗 https://sportvita.vercel.app
 
 ## ✅ O que dá para fazer no Dashboard
