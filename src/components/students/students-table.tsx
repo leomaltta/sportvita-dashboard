@@ -84,6 +84,7 @@ export default function StudentsTable({
               <TableHead>Idade</TableHead>
               <TableHead>Esporte</TableHead>
               <TableHead>Turma</TableHead>
+              <TableHead>Turno</TableHead>
               <TableHead>Peso</TableHead>
               <TableHead>Altura</TableHead>
               <TableHead>IMC</TableHead>
@@ -112,6 +113,7 @@ export default function StudentsTable({
                     <TableCell>{student.age} anos</TableCell>
                     <TableCell>{student.sportAlterName}</TableCell>
                     <TableCell>{student.subCategory}</TableCell>
+                    <TableCell>{student.shift}</TableCell>
                     <TableCell>{student.weight} kg</TableCell>
                     <TableCell>{student.height} m</TableCell>
                     <TableCell className="font-semibold">
