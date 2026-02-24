@@ -19,7 +19,7 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b bg-white dark:bg-zinc-950">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur dark:bg-zinc-950/95">
         <Header />
       </header>
       <Container>{children}</Container>

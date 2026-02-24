@@ -255,7 +255,7 @@ export default async function SportOverview({ params }: SportPageProps) {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col gap-8 px-4 pb-8 pt-8 sm:px-6 lg:px-8">
-      <section className="flex flex-row items-center justify-between">
+      <section className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/dashboard">
           <h1 className="text-3xl font-semibold tracking-tight lg:text-4xl">
             Dashboard

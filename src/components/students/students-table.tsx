@@ -77,7 +77,7 @@ export default function StudentsTable({
 
       <Card>
         <Table>
-          <TableHeader>
+          <TableHeader className=''>
             <TableRow>
               <TableHead>Nome</TableHead>
               <TableHead>Matrícula</TableHead>
