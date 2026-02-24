@@ -65,7 +65,7 @@ export default function Header() {
           <nav className="inline-flex items-center rounded-lg border bg-muted/35 p-1">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={`${item.label}-${item.href}`}
                 href={item.href}
                 className={cn(
                   'rounded-md px-3 py-1.5 text-sm transition-colors',

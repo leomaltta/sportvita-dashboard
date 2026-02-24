@@ -78,7 +78,7 @@ export default function SheetMenu() {
           <div className="my-2 flex flex-col gap-1.5 px-3">
             {navItems.map((item) => (
               <Button
-                key={item.href}
+                key={`${item.label}-${item.href}`}
                 className={cn(
                   'w-full justify-start rounded-md px-3 text-left text-sm',
                   item.active
