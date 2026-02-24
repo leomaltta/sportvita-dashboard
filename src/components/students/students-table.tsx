@@ -77,13 +77,13 @@ export default function StudentsTable({
 
       <Card>
         <Table>
-          <TableHeader>
+          <TableHeader className=''>
             <TableRow>
               <TableHead>Nome</TableHead>
               <TableHead>Matrícula</TableHead>
               <TableHead>Idade</TableHead>
               <TableHead>Esporte</TableHead>
-              <TableHead className=''>Turma</TableHead>
+              <TableHead>Turma</TableHead>
               <TableHead>Turno</TableHead>
               <TableHead>Peso</TableHead>
               <TableHead>Altura</TableHead>
