@@ -50,6 +50,28 @@ export default function Header() {
         </Link>
         <Link
           className={cn(
+            pathname.startsWith('/esportes')
+              ? 'font-semibold text-foreground'
+              : 'font-normal text-muted-foreground transition-colors hover:text-foreground',
+          )}
+          href={sportsHref}
+        >
+          {isAdmin ? 'Esportes' : 'Esporte'}
+        </Link>
+        {isAdmin ? (
+          <Link
+            className={cn(
+              pathname.startsWith('/alertas')
+                ? 'font-semibold text-foreground'
+                : 'font-normal text-muted-foreground transition-colors hover:text-foreground',
+            )}
+            href="/alertas"
+          >
+            Alertas
+          </Link>
+        ) : null}
+        <Link
+          className={cn(
             pathname.startsWith('/estudantes')
               ? 'font-semibold text-foreground'
               : 'font-normal text-muted-foreground transition-colors hover:text-foreground',
@@ -70,16 +92,6 @@ export default function Header() {
             Professores
           </Link>
         ) : null}
-        <Link
-          className={cn(
-            pathname.startsWith('/esportes')
-              ? 'font-semibold text-foreground'
-              : 'font-normal text-muted-foreground transition-colors hover:text-foreground',
-          )}
-          href={sportsHref}
-        >
-          {isAdmin ? 'Esportes' : 'Esporte'}
-        </Link>
       </nav>
 
       <div className="flex items-center gap-6 pr-5 md:justify-end md:pr-2">

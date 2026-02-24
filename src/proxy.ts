@@ -16,6 +16,9 @@ export default withAuth(
     if (pathname.startsWith('/admin') && role !== 'admin') {
       return NextResponse.rewrite(new URL('/denied', request.url))
     }
+    if (pathname.startsWith('/alertas') && role !== 'admin') {
+      return NextResponse.rewrite(new URL('/denied', request.url))
+    }
 
     if (role === 'prof' && sportRoute) {
       const redirectPath = getProfessorDefaultRedirect(pathname, sportRoute)
@@ -50,6 +53,8 @@ export const config = {
     '/',
     '/dashboard/:path*',
     '/esportes/:path*',
+    '/alertas',
+    '/alertas/:path*',
     '/professores',
     '/professores/:path*',
     '/estudantes',
