@@ -40,6 +40,32 @@ In practice: a coordinator can use this to better guide conversations with paren
   - cognitive benefits
   - ideal starting age guidance
 
+## 🚨 Health alerts
+
+The dashboard includes a dedicated alerts page for coordinators: a single place to see **which sport + subcategory needs attention first**, and why.
+
+It helps answer questions like:
+- “Which groups have the highest % of students outside the normal BMI range?”
+- “Where is the biggest gap vs. the ideal BMI right now?”
+- “What are the top priorities for this week across all sports?”
+
+Behind the UI there’s a simple pipeline:
+1) we pull student measurements from the database,
+2) group them by **sport + subcategory**,
+3) reuse the same BMI classification rules used across the app,
+4) compute a few metrics (how many are out of range, what the average BMI looks like, and the gap vs. the ideal BMI),
+5) and then sort everything into a practical priority queue.
+
+In practice you can:
+- filter by sport, subcategory and severity (filters live in the URL, so the view is bookmarkable/shareable),
+- scan the top risks quickly, and
+- export exactly the filtered slice as CSV (admin-only).
+
+Routes / code map:
+- Page: `/alertas` → `src/app/(dashboard)/alertas/page.tsx`
+- Aggregation + rules: `src/lib/alerts.ts` (Prisma-based grouping + severity logic)
+- Export: `GET /api/alertas/export` → `src/app/api/alertas/export/route.ts` (NextAuth session + admin guard)
+
 ## 💻 Tech stack
 - Next.js 16 (App Router)
 - TypeScript 5

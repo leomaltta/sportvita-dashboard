@@ -38,6 +38,32 @@ Na prática: a coordenação pode usar isso para orientar melhor conversas com p
   - benefícios cognitivos
   - orientação de faixa etária ideal de início
 
+## 🚨 Alertas de saúde (priorização)
+
+O dashboard inclui uma página dedicada de alertas para coordenação: um lugar único para ver **qual esporte + subcategoria precisa de atenção primeiro**, e por quê.
+
+Ela ajuda a responder perguntas como:
+- “Quais grupos têm a maior % de alunos fora da faixa de IMC normal?”
+- “Onde está o maior gap em relação ao IMC ideal agora?”
+- “Quais são as principais prioridades desta semana entre todos os esportes?”
+
+Por trás da UI existe um fluxo simples:
+1) buscamos as medições dos alunos no banco de dados,
+2) agrupamos por **esporte + subcategoria**,
+3) reutilizamos as mesmas regras de classificação de IMC usadas no restante do app,
+4) calculamos algumas métricas (quantos estão fora da faixa, como está o IMC médio e o gap vs. o IMC ideal),
+5) e ordenamos tudo em uma fila prática de priorização.
+
+Na prática, você consegue:
+- filtrar por esporte, subcategoria e severidade (os filtros ficam na URL, então a visão é fácil de salvar/compartilhar),
+- identificar os maiores riscos rapidamente, e
+- exportar exatamente o recorte filtrado em CSV (apenas admin).
+
+Rotas / mapa do código:
+- Página: `/alertas` → `src/app/(dashboard)/alertas/page.tsx`
+- Agregação + regras: `src/lib/alerts.ts` (agrupamento via Prisma + lógica de severidade)
+- Exportação: `GET /api/alertas/export` → `src/app/api/alertas/export/route.ts` (sessão NextAuth + bloqueio para admin)
+
 ## 💻 Tech Stack
 - Next.js 16 (App Router)
 - TypeScript 5
