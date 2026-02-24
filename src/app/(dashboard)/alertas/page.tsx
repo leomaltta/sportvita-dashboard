@@ -15,6 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { AlertTriangle, ArrowUpRight, BellRing, CheckCircle2, Download, ShieldAlert } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
   AlertFilters,
   Severity,
@@ -80,6 +81,8 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
     subcategories: selectedSubs,
     severities: selectedSeverities,
   }
+  const hasActiveFilters =
+    selectedSports.length > 0 || selectedSubs.length > 0 || selectedSeverities.length > 0
   const filteredAlerts = filterAlerts(allAlerts, activeFilters)
 
   const criticalCount = filteredAlerts.filter((alert) => alert.severity === 'Crítico').length
@@ -113,19 +116,22 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
             coordenação.
           </p>
         </div>
-        <Link
-          href={exportHref}
-          className="inline-flex items-center gap-2 self-start rounded-md border border-darkblue/30 bg-darkblue/10 px-3 py-2 text-sm font-semibold text-darkblue transition hover:bg-darkblue hover:text-darkblue-foreground"
-        >
-          <Download className="h-4 w-4" />
-          Exportar CSV
-        </Link>
+        <Button asChild className="self-start">
+          <Link href={exportHref}>
+            <Download className="h-4 w-4" />
+            Exportar CSV
+          </Link>
+        </Button>
       </section>
 
       <section className="flex flex-wrap gap-2">
         <Link
           href="/alertas"
-          className="rounded-full border px-3 py-1 text-xs font-medium transition hover:bg-accent"
+          className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+            hasActiveFilters
+              ? 'hover:bg-accent'
+              : 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
+          }`}
         >
           Todos
         </Link>
@@ -139,7 +145,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
             )}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
               selectedSports.includes(sport.name)
-                ? 'border-darkblue bg-darkblue text-white dark:text-slate-950 hover:bg-darkblue/90'
+                ? 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
                 : 'hover:bg-accent'
             }`}
           >
@@ -157,7 +163,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
             )}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
               selectedSubs.includes(sub)
-                ? 'border-darkblue bg-darkblue dark:text-slate-950 text-white hover:bg-darkblue/90'
+                ? 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
                 : 'hover:bg-accent'
             }`}
           >
@@ -175,7 +181,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
             )}
             className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
               selectedSeverities.includes(severity)
-                ? 'border-darkblue bg-darkblue dark:text-slate-950 text-white hover:bg-darkblue/90'
+                ? 'border-primary bg-primary text-primary-foreground hover:bg-primary/90'
                 : 'hover:bg-accent'
             }`}
           >
@@ -278,13 +284,12 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
                       <TableCell className="text-right">{alert.bmiGap.toFixed(2)}</TableCell>
                       <TableCell className="text-right">{alert.studentsCount}</TableCell>
                       <TableCell className="text-center">
-                        <Link
-                          href={`/esportes/${alert.sportRoute}`}
-                          className="inline-flex items-center gap-1 rounded-md border border-darkblue/30 bg-darkblue/10 px-2 py-1 text-xs font-semibold text-darkblue transition hover:bg-darkblue hover:text-darkblue-foreground"
-                        >
-                          Esporte
-                          <ArrowUpRight className="h-3.5 w-3.5" />
-                        </Link>
+                        <Button asChild size="sm">
+                          <Link href={`/esportes/${alert.sportRoute}`}>
+                            Esporte
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </Link>
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))

@@ -27,14 +27,14 @@ export default function SportSelectorDynamic({
   const router = useRouter()
 
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex w-full items-center gap-2 sm:w-auto">
       <Select
         value={esporteDetails}
         onValueChange={(value) => {
           router.push(`/dashboard/${value}`)
         }}
       >
-        <SelectTrigger className="w-[180px] md:w-[220px]">
+        <SelectTrigger className="h-10 w-full min-w-0 sm:w-[220px]">
           <SelectValue placeholder={esporteTitle} />
         </SelectTrigger>
         <SelectContent>
@@ -45,7 +45,7 @@ export default function SportSelectorDynamic({
           ))}
         </SelectContent>
       </Select>
-      <Button onClick={() => router.push(`/esportes/${esporteDetails}`)}>
+      <Button className="h-10 shrink-0 px-4" onClick={() => router.push(`/esportes/${esporteDetails}`)}>
         Detalhes
       </Button>
     </div>

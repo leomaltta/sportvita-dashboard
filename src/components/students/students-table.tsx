@@ -83,7 +83,7 @@ export default function StudentsTable({
               <TableHead>Matrícula</TableHead>
               <TableHead>Idade</TableHead>
               <TableHead>Esporte</TableHead>
-              <TableHead>Turma</TableHead>
+              <TableHead className=''>Turma</TableHead>
               <TableHead>Turno</TableHead>
               <TableHead>Peso</TableHead>
               <TableHead>Altura</TableHead>
