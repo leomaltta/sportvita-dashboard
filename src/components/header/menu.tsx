@@ -71,6 +71,15 @@ export default function SheetMenu() {
               <Button
                 className="w-full justify-start px-2 text-left text-lg font-normal"
                 variant="link"
+                onClick={() => router.push('/alertas')}
+              >
+                Alertas
+              </Button>
+            ) : null}
+            {isAdmin ? (
+              <Button
+                className="w-full justify-start px-2 text-left text-lg font-normal"
+                variant="link"
                 onClick={() => router.push('/professores')}
               >
                 Professores
