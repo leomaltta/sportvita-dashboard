@@ -29,6 +29,7 @@ interface TeacherDialogProps {
   teacher?: TeacherWithSport
   sports: Array<{ id: number; alterName: string }>
   children: ReactNode
+  onSaved?: (mode: 'create' | 'edit') => void
 }
 
 export default function TeacherDialog({
@@ -36,6 +37,7 @@ export default function TeacherDialog({
   teacher,
   sports,
   children,
+  onSaved,
 }: TeacherDialogProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -64,6 +66,7 @@ export default function TeacherDialog({
 
       if (result.success) {
         setOpen(false)
+        onSaved?.(mode)
         router.refresh()
       } else {
         setError(result.error || 'Erro ao salvar')

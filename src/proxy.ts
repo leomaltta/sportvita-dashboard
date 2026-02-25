@@ -50,7 +50,6 @@ export default withAuth(
 )
 export const config = {
   matcher: [
-    '/',
     '/dashboard/:path*',
     '/esportes/:path*',
     '/alertas',

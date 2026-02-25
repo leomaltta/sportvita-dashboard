@@ -43,26 +43,29 @@ export default async function StudentsPage() {
   const canManage = session.user.role === 'admin'
 
   return (
-    <div className="m-3 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+    <main className="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col gap-6 px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+      <section className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight lg:text-4xl">
             Estudantes
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             Gerencie os estudantes atletas do sistema
           </p>
         </div>
         {canManage ? (
           <StudentDialog mode="create">
-            <Button>
+            <Button className="self-start">
               <Plus className="mr-2 h-4 w-4" />
               Adicionar Estudante
             </Button>
           </StudentDialog>
         ) : null}
-      </div>
-      <StudentsTable students={students} canManage={canManage} />
-    </div>
+      </section>
+
+      <section>
+        <StudentsTable students={students} canManage={canManage} />
+      </section>
+    </main>
   )
 }

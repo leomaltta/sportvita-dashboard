@@ -1,16 +1,15 @@
 
-
 'use client'
 
 import {
-  BarChart,
   Bar,
-  XAxis,
-  YAxis,
+  BarChart,
   CartesianGrid,
-  Tooltip,
   Legend,
   ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
 import { ChartDataPoint } from '@/types'
 
@@ -24,48 +23,72 @@ export default function BMIChart({ data }: BMIChartProps) {
       <BarChart
         data={data}
         margin={{
-          top: 20,
-          right: 30,
-          left: 20,
-          bottom: 5,
+          top: 12,
+          right: 18,
+          left: 4,
+          bottom: 8,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+        <CartesianGrid
+          stroke="hsl(var(--border))"
+          strokeDasharray="4 4"
+          strokeOpacity={0.55}
+          vertical={false}
+        />
         <XAxis
           dataKey="name"
-          className="text-sm"
-          tick={{ fill: 'currentColor' }}
+          axisLine={false}
+          tickLine={false}
+          tickMargin={10}
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
         />
         <YAxis
-          className="text-sm"
-          tick={{ fill: 'currentColor' }}
+          axisLine={false}
+          tickLine={false}
+          tickMargin={8}
+          tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
           label={{
             value: 'IMC',
             angle: -90,
             position: 'insideLeft',
-            style: { fill: 'currentColor' },
+            style: { fill: 'hsl(var(--muted-foreground))', fontSize: 12 },
           }}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'hsl(var(--background))',
+            backgroundColor: 'hsl(var(--background) / 0.96)',
             border: '1px solid hsl(var(--border))',
             borderRadius: '0.5rem',
+            boxShadow: '0 8px 22px hsl(var(--foreground) / 0.08)',
           }}
           labelStyle={{ color: 'hsl(var(--foreground))' }}
+          cursor={{ fill: 'hsl(var(--accent) / 0.32)' }}
+          formatter={(value) =>
+            typeof value === 'number' ? value.toFixed(2) : value
+          }
         />
-        <Legend />
+        <Legend
+          verticalAlign="top"
+          align="right"
+          iconType="circle"
+          iconSize={8}
+          wrapperStyle={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))' }}
+        />
         <Bar
           dataKey="Ideal"
           fill="#ABEE7C"
           name="IMC Ideal"
           radius={[8, 8, 0, 0]}
+          maxBarSize={40}
+          animationDuration={900}
         />
         <Bar
           dataKey="Atual"
           fill="hsl(var(--primary))"
           name="IMC Atual"
           radius={[8, 8, 0, 0]}
+          maxBarSize={40}
+          animationDuration={1100}
         />
       </BarChart>
     </ResponsiveContainer>

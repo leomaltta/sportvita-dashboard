@@ -87,13 +87,13 @@ export function calculateSportStats(
 export function classifyBMI(bmi: number, age: number): string {
   if (age < 18) {
     if (bmi < 14) return 'Abaixo do peso'
-    if (bmi < 23) return 'Normal'
+    if (bmi < 23) return 'Saudável'
     if (bmi < 27) return 'Sobrepeso'
     return 'Obesidade'
   }
 
   if (bmi < 18.5) return 'Abaixo do peso'
-  if (bmi < 25) return 'Normal'
+  if (bmi < 25) return 'Saudável'
   if (bmi < 30) return 'Sobrepeso'
   return 'Obesidade'
 }
@@ -101,7 +101,7 @@ export function classifyBMI(bmi: number, age: number): string {
 
 export function getBMIColor(classification: string): string {
   switch (classification) {
-    case 'Normal':
+    case 'Saudável':
       return 'text-green-600 dark:text-green-400'
     case 'Abaixo do peso':
       return 'text-yellow-600 dark:text-yellow-400'

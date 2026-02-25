@@ -62,11 +62,6 @@ In practice: a coordinator can use this to better guide conversations with paren
 - `prof`: restricted to their assigned sport
 - Sensitive student operations (create/edit/delete) are enforced on the server
 
-Production environment variable:
-```env
-TEACHER_DEFAULT_PASSWORD="set-a-strong-password"
-```
-
 ## 🔧 Tests
 Unit tests cover critical logic such as:
 - home authentication redirect

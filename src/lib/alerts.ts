@@ -160,7 +160,7 @@ export async function getAlertData(): Promise<AlertItem[]> {
 
     item.bmiSum += bmi
     item.studentsCount += 1
-    if (status !== 'Normal') {
+    if (status !== 'Saudável') {
       item.outOfRangeCount += 1
     }
 
