@@ -62,7 +62,7 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <body className={ubuntu.className}>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             {children}
           </AuthProvider>

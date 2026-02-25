@@ -8,7 +8,6 @@ const slides = [
   '/slider-img-pool.jpg',
   '/slider-img-tennisgirl.jpeg',
   '/slider-img-tennis.jpg',
-  '/slider-img-water.jpeg',
 ]
 
 export function LoginCarousel() {
