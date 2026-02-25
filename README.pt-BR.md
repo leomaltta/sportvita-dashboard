@@ -2,6 +2,7 @@
 <p align="left">
   <a href="README.md">English</a> | <b>Português</b>
 </p>
+
 O SportVita é um dashboard web criado para ajudar escolas a acompanhar a **saúde dos estudantes** por meio do esporte.
 
 Este repositório é um **showcase** do lado “dashboard” do SportVita: indicadores, comparativos e regras de acesso pensadas para o fluxo real de uma escola (coordenação + professores).

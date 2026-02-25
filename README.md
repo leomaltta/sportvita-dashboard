@@ -2,6 +2,7 @@
 <p align="left">
   <b>English</b> | <a href="README.pt-BR.md">Português</a>
 </p>
+
 SportVita is a web dashboard built to help schools track **student health** through sports.
 
 This repo is a **showcase** of the dashboard side of SportVita: indicators, comparisons, and access rules designed around real school workflows (coordination + teachers).
