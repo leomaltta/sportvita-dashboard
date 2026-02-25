@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 import { cn } from '@/lib/utils'
 import SheetMenu from './menu'
 import UserProfile from './user-profile'
+import { ModeToggle } from '@/components/ui/mode-toggle'
 
 export default function Header() {
   const pathname = usePathname()
@@ -80,6 +81,7 @@ export default function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-2 md:gap-3">
+          <ModeToggle />
           <UserProfile />
         </div>
       </div>

@@ -1,5 +1,4 @@
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/api/auth/[...nextauth]/options'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -71,12 +70,15 @@ function ThemeImage({
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
+  const isAdmin = session?.user?.role === 'admin'
+  const sportRoute = session?.user?.sportRoute
+  const dashboardHref = isAdmin
+    ? '/dashboard'
+    : sportRoute
+      ? `/dashboard/${sportRoute}`
+      : '/denied'
 
-  if (session) {
-    redirect('/dashboard')
-  }
-
-      return (
+  return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
@@ -109,7 +111,9 @@ export default async function Home() {
               </a>
             </Button>
             <Button asChild>
-              <Link href="/login">Entrar</Link>
+              <Link href={session ? dashboardHref : '/login'}>
+                {session ? 'Dashboard' : 'Entrar'}
+              </Link>
             </Button>
           </div>
         </header>
@@ -130,8 +134,8 @@ export default async function Home() {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
-                <Link href="/login">
-                  Acessar a plataforma
+                <Link href={session ? dashboardHref : '/login'}>
+                  {session ? 'Ir para o dashboard' : 'Acessar a plataforma'}
                   <ArrowUpRight />
                 </Link>
               </Button>
@@ -364,7 +368,7 @@ export default async function Home() {
             </div>
           </article>
 
-          <article className="grid items-center gap-8 rounded-2xl border bg-card px-5 py-7 shadow-xl lg:grid-cols-2 lg:px-8">
+          <article className="grid items-center gap-8 rounded-2xl border bg-card px-5 py-7 shadow-xl lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
             <div className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 4. Operação diária
@@ -391,20 +395,20 @@ export default async function Home() {
               <div className="relative [perspective:1400px]">
                 <div className="relative overflow-hidden rounded-xl border shadow-2xl transition-transform duration-500 lg:[transform:perspective(1400px)_rotateY(-10deg)_rotateX(2deg)]">
                   <ThemeImage
-                    lightSrc="/landing/estudantes-table-light.webp"
-                    darkSrc="/landing/estudantes-table-dark.webp"
+                    lightSrc="/landing/1estudantes-table-light.webp"
+                    darkSrc="/landing/1estudantes-table-dark.webp"
                     alt="Gestão de estudantes"
-                    className="h-[280px] w-full object-cover lg:h-[300px]"
+                    className="h-auto w-full object-contain"
                   />
                 </div>
               </div>
               <div className="relative [perspective:1400px]">
                 <div className="relative overflow-hidden rounded-xl border shadow-2xl transition-transform duration-500 lg:[transform:perspective(1400px)_rotateY(10deg)_rotateX(2deg)]">
                   <ThemeImage
-                    lightSrc="/landing/professors-table-white.webp"
-                    darkSrc="/landing/professors-table-dark.webp"
+                    lightSrc="/landing/1professores-table-dark.webp"
+                    darkSrc="/landing/1professores-table-dark.webp"
                     alt="Gestão de professores"
-                    className="h-[280px] w-full object-cover lg:h-[300px]"
+                    className="h-auto w-full object-contain"
                   />
                 </div>
               </div>
