@@ -124,8 +124,8 @@ export default async function Home() {
               Monitoramento de saúde escolar em escala
             </p>
             <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Sua escola já tem dados. Falta transformar em{' '}
-              <span className="text-primary">decisão</span>.
+              Sua escola decide no escuro?{' '}
+              <span className="text-primary">Oriente-se por dados. Proteja a saúde.</span>
             </h1>
             <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
               O Sport Vita organiza indicadores de saúde e performance por esporte em uma leitura
