@@ -26,25 +26,27 @@ export default async function TeachersPage() {
   const [teachers, sports] = await Promise.all([getAllTeachers(), getSportsOptions()])
 
   return (
-    <div className="m-3 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+    <main className="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col gap-6 px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+      <section className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight lg:text-4xl">
             Professores
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             Gerencie os professores do sistema
           </p>
         </div>
         <TeacherDialog mode="create" sports={sports}>
-          <Button>
+          <Button className="self-start">
             <Plus className="mr-2 h-4 w-4" />
             Adicionar Professor(a)
           </Button>
         </TeacherDialog>
-      </div>
+      </section>
 
-      <TeachersTable teachers={teachers as TeacherWithSport[]} sports={sports} />
-    </div>
+      <section>
+        <TeachersTable teachers={teachers as TeacherWithSport[]} sports={sports} />
+      </section>
+    </main>
   )
 }

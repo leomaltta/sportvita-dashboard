@@ -198,7 +198,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <span className="text-3xl font-semibold">{criticalCount}</span>
+              <span className="text-2xl font-semibold">{criticalCount}</span>
               <ShieldAlert className="h-5 w-5 text-red-500" />
             </div>
           </CardContent>
@@ -209,7 +209,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <span className="text-3xl font-semibold">{warningCount}</span>
+              <span className="text-2xl font-semibold">{warningCount}</span>
               <AlertTriangle className="h-5 w-5 text-orange-500" />
             </div>
           </CardContent>
@@ -219,7 +219,7 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
             <CardTitle className="text-sm font-medium">Maior risco atual</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm font-semibold">
+            <div className="text-2xl font-semibold leading-tight tracking-tight">
               {topRisk
                 ? `${topRisk.sportDisplayName} • ${topRisk.subCategory}`
                 : 'Sem alertas no filtro atual'}
@@ -228,11 +228,11 @@ export default async function AlertsPage({ searchParams }: AlertPageProps) {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Taxa média de IMC normal</CardTitle>
+            <CardTitle className="text-sm font-medium">Taxa média de IMC saudável</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <span className="text-3xl font-semibold">{globalNormalRate}%</span>
+              <span className="text-2xl font-semibold">{globalNormalRate}%</span>
               <CheckCircle2 className="h-5 w-5 text-emerald-500" />
             </div>
           </CardContent>

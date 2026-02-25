@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     'IMC Médio',
     'IMC Ideal',
     'Gap IMC',
-    'Taxa Normal',
+    'Taxa Saudável',
     'Total Estudantes',
     'Recomendação',
   ]

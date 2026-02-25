@@ -13,7 +13,7 @@ jest.mock('@/app/api/auth/[...nextauth]/options', () => ({
   authOptions: {},
 }))
 
-describe('Home redirect behavior', () => {
+describe('Home auth behavior', () => {
   let Home: any
 
   beforeAll(() => {
@@ -32,11 +32,11 @@ describe('Home redirect behavior', () => {
     expect(mockRedirect).toHaveBeenCalledWith('/dashboard')
   })
 
-  it('redirects unauthenticated users to /login', async () => {
+  it('renders landing for unauthenticated users without redirect', async () => {
     mockGetServerSession.mockResolvedValueOnce(null)
 
     await Home()
 
-    expect(mockRedirect).toHaveBeenCalledWith('/login')
+    expect(mockRedirect).not.toHaveBeenCalled()
   })
 })

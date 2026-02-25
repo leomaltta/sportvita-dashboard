@@ -86,11 +86,6 @@ Rotas / mapa do código:
 - `prof`: acesso restrito ao esporte atribuído
 - Operações sensíveis de estudantes (criar/editar/excluir) são validadas no servidor
 
-Variável de ambiente (produção):
-```env
-TEACHER_DEFAULT_PASSWORD="defina-uma-senha-forte"
-```
-
 ## 🔧 Testes
 Testes unitários cobrem lógicas críticas como:
 - redirecionamento de autenticação no início

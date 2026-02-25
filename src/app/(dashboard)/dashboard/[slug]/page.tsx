@@ -180,7 +180,7 @@ async function getSportStats(route: string) {
     const ageFromSub = Number(student.subCategory.replace('Sub-', ''))
     const status = classifyBMI(bmi, ageFromSub)
     totalBmi += bmi
-    if (status === 'Normal') {
+    if (status === 'Saudável') {
       normalBmiCount += 1
     }
 
@@ -305,7 +305,7 @@ export default async function SportOverview({ params }: SportPageProps) {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-[0.95rem] font-medium">
-                Taxa de IMC normal
+                Taxa de IMC saudável
               </CardTitle>
               <TrendingUpIcon />
             </CardHeader>
@@ -318,7 +318,7 @@ export default async function SportOverview({ params }: SportPageProps) {
                 {participationStatus.label}
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
-                Percentual atual de estudantes na faixa normal
+                Percentual atual de estudantes na faixa saudável
               </p>
             </CardContent>
           </Card>

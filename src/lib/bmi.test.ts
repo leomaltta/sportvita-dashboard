@@ -5,8 +5,8 @@ describe('classifyBMI', () => {
     expect(classifyBMI(13.9, 12)).toBe('Abaixo do peso')
   })
 
-  it('classifies normal children correctly', () => {
-    expect(classifyBMI(18.2, 12)).toBe('Normal')
+  it('classifies healthy children correctly', () => {
+    expect(classifyBMI(18.2, 12)).toBe('Saudável')
   })
 
   it('classifies overweight children correctly', () => {
@@ -19,7 +19,7 @@ describe('classifyBMI', () => {
 
   it('classifies adults using adult thresholds', () => {
     expect(classifyBMI(18.4, 18)).toBe('Abaixo do peso')
-    expect(classifyBMI(24.9, 18)).toBe('Normal')
+    expect(classifyBMI(24.9, 18)).toBe('Saudável')
     expect(classifyBMI(29.9, 18)).toBe('Sobrepeso')
     expect(classifyBMI(30, 18)).toBe('Obesidade')
   })

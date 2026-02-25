@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import LoginForm from '@/components/auth/login-form'
-import { ModeToggle } from '@/components/ui/mode-toggle'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/app/api/auth/[...nextauth]/options'
@@ -21,9 +20,6 @@ export default async function LoginPage() {
   return (
     <main className="w-full lg:flex lg:flex-row-reverse">
       <section className="relative flex h-screen flex-col items-center justify-center lg:w-2/4">
-        <div className="absolute right-5 top-4">
-          <ModeToggle />
-        </div>
         <div className="flex w-full max-w-lg flex-col gap-5 px-6">
           <div className="flex flex-col items-center">
             <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
