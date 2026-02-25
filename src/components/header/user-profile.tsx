@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { GraduationCap, LayoutDashboard, LogOut, Trophy, Users, Wrench } from 'lucide-react'
+import { Globe, GraduationCap, LayoutDashboard, LogOut, Trophy, Users, Wrench } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
 
@@ -107,6 +107,16 @@ export default function UserProfile() {
           </DropdownMenuItem>
         ) : null}
         <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            router.push('/')
+          }}
+          className="cursor-pointer"
+        >
+          <div className="flex flex-row items-center gap-2">
+            <Globe className="h-4 w-4" /> Apresentação
+          </div>
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             signOut({ callbackUrl: '/login' })
