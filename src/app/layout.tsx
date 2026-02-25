@@ -14,7 +14,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Sport Vita Dashboard',
+    default: 'Sport Vita',
     template: '%s | Sport Vita',
   },
   description: 'Plataforma de monitoramento de saúde escolar com visão por esporte, alertas e gestão operacional.',
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'pt_BR',
     siteName: 'Sport Vita',
-    title: 'Sport Vita Dashboard',
+    title: 'Sport Vita',
     description: 'Monitoramento de saúde escolar com dados por esporte, subcategoria e alertas de risco.',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Sport Vita Dashboard' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sport Vita Dashboard',
+    title: 'Sport Vita',
     description: 'Monitoramento de saúde escolar com dados por esporte e alertas priorizados.',
     images: ['/twitter-image.png'],
   },

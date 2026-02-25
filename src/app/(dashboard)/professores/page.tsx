@@ -8,7 +8,7 @@ import prisma from '../../../../prisma/client'
 import { TeacherWithSport } from '@/types'
 
 export const metadata: Metadata = {
-  title: 'Professores | Sport Vita',
+  title: 'Professores',
   description: 'Gerenciar professores',
 }
 

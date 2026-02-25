@@ -11,7 +11,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/options'
 import prisma from '../../../../prisma/client'
 
 export const metadata: Metadata = {
-  title: 'Estudantes | Sport Vita',
+  title: 'Estudantes',
   description: 'Gerenciar estudantes atletas',
 }
 

@@ -1,5 +1,10 @@
+import { Metadata } from 'next'
 import ProfileUserForm from '@/components/forms/profile-user-form'
 import { Separator } from '@/components/ui/separator'
+
+export const metadata: Metadata = {
+  title: 'Painel',
+}
 
 export default function AdminPanelPage() {
   return (

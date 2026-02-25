@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 import {
   Card,
@@ -25,6 +26,10 @@ import {
   getSeverityClassName,
   parseMultiParam,
 } from '@/lib/alerts'
+
+export const metadata: Metadata = {
+  title: 'Alertas',
+}
 
 interface AlertPageProps {
   searchParams:

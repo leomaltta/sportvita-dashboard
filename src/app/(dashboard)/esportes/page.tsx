@@ -1,5 +1,10 @@
+import { Metadata } from 'next'
 import prisma from '../../../../prisma/client'
 import SportCard from '@/components/cards/sport-card'
+
+export const metadata: Metadata = {
+  title: 'Esportes',
+}
 
 export default async function SportsPage() {
   const sports = await prisma.sport.findMany({

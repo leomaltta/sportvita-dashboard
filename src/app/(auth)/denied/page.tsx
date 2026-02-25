@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ShieldX, Home } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Acesso Negado | Sport Vita Dashboard',
+  title: 'Acesso Negado',
   description: 'Você não tem permissão para acessar esta página',
 }
 
