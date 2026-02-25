@@ -40,7 +40,7 @@ const subcategories = ['Sub-6', 'Sub-8', 'Sub-10', 'Sub-12', 'Sub-14', 'Sub-17']
 
 function getStatusPill(classification: string) {
   switch (classification) {
-    case 'Normal':
+    case 'Saudável':
       return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
     case 'Abaixo do peso':
       return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'
@@ -96,7 +96,7 @@ async function getSportInsightData(route: string) {
   for (const student of students) {
     const bmi = student.weight / (student.height * student.height)
     const status = classifyBMI(bmi, student.age)
-    const outOfRange = status !== 'Normal'
+    const outOfRange = status !== 'Saudável'
     totalBmi += bmi
     if (outOfRange) totalOutOfRange += 1
 
@@ -108,7 +108,7 @@ async function getSportInsightData(route: string) {
         outOfRangeCount: 0,
         outOfRangeRate: 0,
         normalRate: 0,
-        status: 'Normal',
+        status: 'Saudável',
       }
     }
 
@@ -261,7 +261,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
               Alerta de Saúde
             </CardTitle>
             <CardDescription>
-              Subcategorias com mais de 30% de estudantes fora da faixa de IMC normal.
+              Subcategorias com mais de 30% de estudantes fora da faixa de IMC saudável.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
@@ -306,7 +306,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
                       <span className={getBMIColor(item.status)}>{item.avgBmi.toFixed(2)}</span>
                     </p>
                     <p className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Faixa normal</span>
+                      <span className="text-muted-foreground">Faixa saudável</span>
                       <span>{item.normalRate.toFixed(1)}%</span>
                     </p>
                     <p className="flex items-center justify-between">
@@ -356,7 +356,7 @@ export default async function SportDetailsPage({ params }: SportDetailsPageProps
           <CardHeader>
             <CardTitle>Comparativo entre subcategorias</CardTitle>
             <CardDescription>
-              IMC médio, gasto calórico estimado e taxa de estudantes em faixa normal.
+              IMC médio, gasto calórico estimado e taxa de estudantes em faixa saudável.
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">

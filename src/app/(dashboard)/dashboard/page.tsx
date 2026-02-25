@@ -163,7 +163,7 @@ async function getDashboardData() {
     const bmi = student.weight / (student.height * student.height)
     const bmiStatus = classifyBMI(bmi, Number(student.subCategory.replace('Sub-', '')))
     bmiSum += bmi
-    if (bmiStatus === 'Normal') {
+    if (bmiStatus === 'Saudável') {
       normalBmiCount += 1
     }
     studentsBySub[student.subCategory] = (studentsBySub[student.subCategory] ?? 0) + 1
@@ -294,7 +294,7 @@ export default async function Dashboard() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-[1rem] font-medium tracking-normal">
-                Taxa de IMC normal
+                Taxa de IMC saudável
               </CardTitle>
               <TrendingUpIcon />
             </CardHeader>
@@ -307,7 +307,7 @@ export default async function Dashboard() {
                 {participationStatus.label}
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
-                Percentual atual de estudantes na faixa normal
+                Percentual atual de estudantes na faixa saudável
               </p>
             </CardContent>
           </Card>

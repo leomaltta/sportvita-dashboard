@@ -28,6 +28,7 @@ interface StudentDialogProps {
   mode: 'create' | 'edit'
   student?: StudentWithBMI
   children: ReactNode
+  onSaved?: (mode: 'create' | 'edit') => void
 }
 
 
@@ -35,6 +36,7 @@ export default function StudentDialog({
   mode,
   student,
   children,
+  onSaved,
 }: StudentDialogProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -68,6 +70,7 @@ export default function StudentDialog({
 
       if (result.success) {
         setOpen(false)
+        onSaved?.(mode)
         router.refresh()
       } else {
         setError(result.error || 'Erro ao salvar')

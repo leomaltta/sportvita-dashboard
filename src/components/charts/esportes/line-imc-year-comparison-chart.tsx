@@ -21,6 +21,48 @@ interface LineImcYearComparisonChartProps {
   data: ChartDataItem[]
 }
 
+interface CustomTooltipProps {
+  active?: boolean
+  label?: string
+  payload?: Array<{
+    dataKey?: string
+    value?: number | string
+  }>
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
+  if (!active || !payload?.length) return null
+
+  const ideal = payload.find((item) => item.dataKey === 'Ideal')?.value
+  const media = payload.find((item) => item.dataKey === 'Media')?.value
+
+  return (
+    <div className="min-w-[180px] rounded-lg border bg-background/95 p-3 shadow-lg backdrop-blur">
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
+      <div className="mt-2 space-y-1.5">
+        <p className="flex items-center justify-between gap-2 text-sm">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-lightgreen" />
+            IMC ideal
+          </span>
+          <span className="font-semibold">
+            {typeof ideal === 'number' ? ideal.toFixed(2) : '-'}
+          </span>
+        </p>
+        <p className="flex items-center justify-between gap-2 text-sm">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-darkblue" />
+            IMC médio
+          </span>
+          <span className="font-semibold">
+            {typeof media === 'number' ? media.toFixed(2) : '-'}
+          </span>
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export default function LineImcYearComparisonChart({
   data,
 }: LineImcYearComparisonChartProps) {
@@ -31,28 +73,64 @@ export default function LineImcYearComparisonChart({
         height={300}
         data={data}
         margin={{
-          top: 25,
+          top: 12,
           right: 20,
-          left: -5,
-          bottom: 30,
+          left: 4,
+          bottom: 10,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip
-          contentStyle={{ backgroundColor: 'hsl(var(--primary-foreground))' }}
+        <CartesianGrid
+          stroke="hsl(var(--border))"
+          strokeDasharray="4 4"
+          strokeOpacity={0.55}
+          vertical={false}
         />
-        <Legend />
+        <XAxis
+          dataKey="name"
+          axisLine={false}
+          tickLine={false}
+          tickMargin={10}
+          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+        />
+        <YAxis
+          axisLine={false}
+          tickLine={false}
+          tickMargin={8}
+          tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+          tickFormatter={(value) => Number(value).toFixed(1)}
+        />
+        <Tooltip
+          content={<CustomTooltip />}
+          cursor={{ stroke: 'hsl(var(--border))' }}
+        />
+        <Legend
+          verticalAlign="top"
+          align="right"
+          iconType="circle"
+          iconSize={8}
+          wrapperStyle={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))' }}
+        />
         <Line
           type="monotone"
           dataKey="Ideal"
           stroke="hsl(var(--lightgreen))"
-          activeDot={{ r: 1 }}
-          strokeDasharray="5 5"
-          dot={false}
+          strokeWidth={2.5}
+          strokeDasharray="7 6"
+          dot={{ r: 0 }}
+          activeDot={{ r: 4, strokeWidth: 2, fill: 'hsl(var(--background))' }}
+          animationDuration={900}
+          animationEasing="ease-out"
         />
-        <Line type="monotone" dataKey="Media" stroke="hsl(var(--darkblue))" />
+        <Line
+          type="monotone"
+          dataKey="Media"
+          stroke="hsl(var(--darkblue))"
+          strokeWidth={3}
+          dot={{ r: 0 }}
+          activeDot={{ r: 5, strokeWidth: 2, fill: 'hsl(var(--background))' }}
+          animationDuration={1100}
+          animationEasing="ease-out"
+        />
       </LineChart>
     </ResponsiveContainer>
   )

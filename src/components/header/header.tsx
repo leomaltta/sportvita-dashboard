@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { cn } from '@/lib/utils'
-import { ModeToggle } from '@/components/ui/mode-toggle'
 import SheetMenu from './menu'
 import UserProfile from './user-profile'
 
@@ -81,7 +80,6 @@ export default function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-2 md:gap-3">
-          <ModeToggle />
           <UserProfile />
         </div>
       </div>
