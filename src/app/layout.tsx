@@ -10,6 +10,7 @@ const ubuntu = Ubuntu({
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://sportvita.vercel.app'
+const iconVersion = '20260227'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -22,13 +23,13 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
+      { url: `/favicon.ico?v=${iconVersion}`, sizes: 'any' },
+      { url: `/favicon-16x16.png?v=${iconVersion}`, type: 'image/png', sizes: '16x16' },
+      { url: `/favicon-32x32.png?v=${iconVersion}`, type: 'image/png', sizes: '32x32' },
+      { url: `/favicon-48x48.png?v=${iconVersion}`, type: 'image/png', sizes: '48x48' },
     ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-    shortcut: ['/favicon-32x32.png'],
+    apple: [{ url: `/apple-touch-icon.png?v=${iconVersion}`, sizes: '180x180', type: 'image/png' }],
+    shortcut: [`/favicon-32x32.png?v=${iconVersion}`],
   },
   openGraph: {
     type: 'website',
