@@ -95,6 +95,4 @@ Testes unitários cobrem lógicas críticas como:
 - autorização de rotas por perfil/esporte (`authz`)
 
 ## 🔗 Links
-- Site de apresentação: https://sportvita.vercel.app
-- Dashboard: https://sportvita-dashboard.vercel.app
-- Repositório: https://github.com/leomaltta/sportvita-dashboard
+Website oficial: https://sportvita.vercel.app

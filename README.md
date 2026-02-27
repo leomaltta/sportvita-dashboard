@@ -97,6 +97,4 @@ Unit tests cover critical logic such as:
 - route authorization by role/sport (`authz`)
 
 ## 🔗 Links
-- Presentation site: https://sportvita.vercel.app
-- Dashboard site: https://sportvita-dashboard.vercel.app 
-- Repository: https://github.com/leomaltta/sportvita-dashboard
+- Official Website: https://sportvita.vercel.app
